@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  trenit:
+    image: trenipy
+    container_name: trenipy
+    working_dir: /app
+    command: python ./main.py
+    volumes:
+      - ./:/app
+    restart: always
+
+networks:
+  default:
+    external:
+      name: 420net

@@ -1,0 +1,4 @@
+
+
+class TrainInPastError(Exception):
+    pass

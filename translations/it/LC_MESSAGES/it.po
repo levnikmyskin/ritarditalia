@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-11 00:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: app_strings.py:8
+msgid ""
+"Ciao! Questo bot è in grado di tenerti informato/a sullo stato dei treni che "
+"scegli di monitorare. Puoi monitorare uno o più treni, per un solo giorno "
+"(oggi, domani ecc.) o tutti i giorni. Il bot controllerà fino a 4 ore prima "
+"della tua partenza se il treno presenta ritardo e, in caso,  ti avviserà :)."
+msgstr ""
+
+#: app_strings.py:12
+msgid ""
+"Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
+"`/`. Te ne mostro alcuni:\n"
+"1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, puoi usarlo "
+"per monitorare un treno.Es. scrivi `/monitora 12855 sempre 3:06`.\n"
+"Altro es. /monitora 511 09/10/2019 3:06;\n"
+"2. /english change the language to english;\n"
+"2. /italian cambia la lingua in italiano;\n"
+"3. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
+msgstr ""
+
+#: app_strings.py:20
+msgid "Lingua cambiata in italiano :D"
+msgstr ""
+
+#: app_strings.py:22
+msgid "Aggiunto il treno, informazioni:\n"
+msgstr ""
+
+#: app_strings.py:24
+msgid ""
+"C'è stato un errore e non è stato possibile aggiungere il treno, controlla "
+"che il comando sia scritto corettamente"
+msgstr ""
+
+#: app_strings.py:26
+msgid "C'è stato un errore nell'eliminare il treno"
+msgstr ""
+
+#: app_strings.py:28
+msgid "Non è stato possibile ottenere lo status del tuo treno :("
+msgstr ""
+
+#: app_strings.py:30
+msgid "Treno"
+msgstr ""
+
+#: app_strings.py:31
+msgid "Status treno"
+msgstr ""
+
+#: app_strings.py:32
+msgid "Elimina treno"
+msgstr ""
+
+#: app_strings.py:33
+msgid ""
+"Lo stato del treno non sembra essere disponibile, forse deve ancora partire?"
+msgstr ""
+
+#: app_strings.py:34
+msgid "Il treno è stato eliminato!"
+msgstr ""
+
+#: app_strings.py:36
+msgid "Il treno è in ritardo di {} minuti!"
+msgstr ""
+
+#: app_strings.py:37
+msgid "Il treno è in orario!"
+msgstr ""
