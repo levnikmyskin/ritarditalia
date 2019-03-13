@@ -1,0 +1,5 @@
+DB_NAME = "database name"
+DB_HOST = "db"
+DB_USER = "database user"
+DB_PASSWORD = "database password"
+BOT_DOMAIN = "yourdomain.tld"
