@@ -138,6 +138,20 @@ def delete_train(bot: Bot, update: Update, conn):
         update.callback_query.answer()
 
 
+@decorators.set_language
+def commands_help(bot: Bot, update: Update, conn):
+    helps = {
+        "monello": _(app_strings.monello_help),
+        "monitora": _(app_strings.monitor_help),
+        "status": _(app_strings.status_help),
+        "delete": _(app_strings.delete_help),
+        "italian": _(app_strings.italian_help),
+        "english": _(app_strings.english_help)
+    }
+    command = update.effective_message.split(" ")
+    update.message.reply_text(helps.get(command, "Riprova"), parse_mode=ParseMode.MARKDOWN)
+
+
 def main():
     token = get_bot_token()
     updater = Updater(token=token)
@@ -148,6 +162,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('delete', train_delete_list))
     updater.dispatcher.add_handler(CommandHandler('italian', change_lang_italian))
     updater.dispatcher.add_handler(CommandHandler('english', change_lang_english))
+    updater.dispatcher.add_handler(CommandHandler('help', commands_help))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_status, pattern=r'status \d+'))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=delete_train, pattern=r'delete \d+'))
     updater.job_queue.run_repeating(monitor, interval=3600, first=0)
