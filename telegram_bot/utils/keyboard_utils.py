@@ -22,9 +22,15 @@ def train_list_keyboard(callback_key: str, chat_id: str, conn) -> InlineKeyboard
     """
     trains = train_list_iterator(chat_id, conn)
     buttons = [
-        [InlineKeyboardButton(f"{_(app_strings.train)} {el.code} {el.depart_date.strftime('%d/%m/%Y %H:%M')}",
-                                    callback_data=f"{callback_key} {el.id}") for el in group if el is not None]
+        [InlineKeyboardButton(f"{_(app_strings.train)} {el.code} {__get_train_date_for_keyboard(el)}",
+                              callback_data=f"{callback_key} {el.id}") for el in group if el is not None]
         for group in trains
     ]
     return InlineKeyboardMarkup(buttons)
+
+
+def __get_train_date_for_keyboard(train) -> str:
+    if train.check_daily:
+        return train.depart_date.strftime('%H:%M')
+    return train.depart_date.strftime('%d/%m/%Y %H:%M')
 
