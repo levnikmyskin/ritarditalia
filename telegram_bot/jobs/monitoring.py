@@ -1,9 +1,10 @@
 import MySQLdb
 import app_strings
 from telegram_bot.utils.language_utils import set_language
-from telegram_bot.utils.trains_api import get_train_status, timestamp_to_italy_datetime, Train
+from telegram_bot.utils.trains_api import get_train_status, timestamp_to_italy_datetime
 from telegram_bot.utils.notifications import send_telegram_message
 from telegram_bot.utils.db_utils import get_user, get_station_from_code, get_trains_to_monitor
+from telegram_bot.utils.structs import Train
 from datetime import datetime
 from config import *
 

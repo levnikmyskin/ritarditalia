@@ -148,8 +148,8 @@ def commands_help(bot: Bot, update: Update, conn):
         "italian": _(app_strings.italian_help),
         "english": _(app_strings.english_help)
     }
-    command = update.effective_message.split(" ")
-    update.message.reply_text(helps.get(command, "Riprova"), parse_mode=ParseMode.MARKDOWN)
+    command = update.effective_message.text.split(" ")
+    update.message.reply_text(helps.get(command[1], "Riprova"), parse_mode=ParseMode.MARKDOWN)
 
 
 def main():
