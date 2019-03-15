@@ -41,28 +41,28 @@ train_deleted = N_("Il treno è stato eliminato!")
 train_delayed = N_("Il treno è in ritardo di {} minuti!")
 train_on_time = N_("Il treno è in orario!")
 
-monitor_help = N_("Funzionamento:\n\n\t\t`/monitora {codice_treno} {data|sempre} {ora}`\n"
+monitor_help = N_("Funzionamento:\n\n\t\t`/monitora {codice_treno} {data|sempre} {ora}`\n\n"
                   "Questo comando ti permette di aggiungere un treno e monitorare il suo ritardo fino a 4 ore prima "
                   "della tua partenza.\nAl momento, non è possibile cercare un treno, dovrai quindi averne il codice. "
                   "Per cominciare a monitorare un treno scrivi un messaggio come questo al bot:\n\n"
                   "\t\t`/monitora 8626 03/03/2019 16:57`\n\n"
                   "Con questo aggiungi il treno 8626, specificando che parti il 3 marzo 2019 alle 16:57\n\n"
-                  "\t\t`/monitora 8626 sempre 16:57\n\n"
+                  "\t\t`/monitora 8626 sempre 16:57`\n\n"
                   "Con questo aggiungi il treno 8626, specificando che parti tutti i giorni alle 16:57")
 
-status_help = N_("Funzionamento:\n\n\t\t`/status`\n"
+status_help = N_("Funzionamento:\n\n\t\t`/status`\n\n"
                  "Questo comando ti permette di vedere i treni che hai aggiunto. Puoi cliccare/toccare su un treno "
                  "per vederne i ritardi (ammesso che il treno sia già partito). Se vuoi invece eliminare un treno,"
                  "usa `/delete`")
 
-delete_help = N_("Funzionamento:\n\n\t\t`/delete`\n"
+delete_help = N_("Funzionamento:\n\n\t\t`/delete`\n\n"
                  "Questo comando ti permette di eliminare i treni che hai aggiunto. Puoi cliccare/toccare su un treno "
                  "per eliminarlo.")
 
-italian_help = N_("Funzionamento:\n\n\t\t`/italian`\n"
+italian_help = N_("Funzionamento:\n\n\t\t`/italian`\n\n"
                   "Cambia la lingua in italiano")
 
-monello_help = N_("Funzionamento:\n\n\t\t`/monello`\n"
+monello_help = N_("Funzionamento:\n\n\t\t`/monello`\n\n"
                   ";) Per viaggi mai banali, per treni che non devono chiedere mai, per ritardi oltre ogni aspettativa")
 
 english_help = N_("The english language is not available yet :(")
