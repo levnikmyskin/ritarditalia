@@ -42,4 +42,7 @@ to search for trains, but I couldn't come up with any idea :/
 ## Contributing
 This project was basically born because I needed a simple way to keep track of trains delays several hours before my 
 departure, but I would gladly appreciate any contribution. Just fork the repo and make a pull request on a new branch 
-when you're ready.
+when you're ready.  
+
+## Credits
+This bot was possible thanks to the amazing work done on the Trenitalia API documentation by https://github.com/SimoDax/Trenitalia-API/wiki/API-Trenitalia---lefrecce.it and https://github.com/sabas/trenitalia
