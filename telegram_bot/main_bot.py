@@ -60,6 +60,10 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
         train_code, date, hours = split[1:4]
         coach, seat = split[4:6] if len(split) == 6 else (None, None)
         stations = trains_api.find_train_original_depart_station(train_code)
+        if len(stations) == 0:
+            bot.send_sticker(update.effective_chat.id, stickers.sad_cat)
+            update.message.reply_text(_(app_strings.api_error))
+            return
         if len(stations) > 1:
             # TODO ask user which of the stations he wants
             pass
