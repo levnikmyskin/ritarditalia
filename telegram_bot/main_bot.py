@@ -6,12 +6,13 @@ from telegram import ParseMode
 from telegram_bot.utils.token_parser import get_bot_token
 from telegram_bot.utils.language_utils import set_language
 from telegram_bot.utils import keyboard_utils, decorators, structs, trains_api, db_utils
+from telegram_bot.utils.exceptions import WrongDateFormatError
 from datetime import datetime
-from telegram_bot.jobs.monitoring import get_status_message
-from telegram_bot.jobs.monitoring import run as monitor
+from telegram_bot.jobs.monitoring import get_status_message, run as monitor, interval_pattern
 from config import BOT_DOMAIN
 import app_strings
 import logging
+
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 
@@ -60,10 +61,22 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
             # TODO ask user which of the stations he wants
             pass
         else:
-            if date != "sempre":
+            check_interval = ""
+            check_daily = False
+            if len(date) >= 30:
+                # What the heck did the user just sent? Lol
+                raise WrongDateFormatError(f"Date sent from the user was too long, wtf?\nReceived: {date}")
+            elif len(date) == 16:
+                # The date format we request has length 16
                 full_date = datetime.strptime(f"{date} {hours}", "%d/%m/%Y %H:%M")
             else:
                 full_date = datetime.strptime(f"{hours}", "%H:%M")
+                check_daily = True
+                if date != "sempre":
+                    if not interval_pattern.match(date):
+                        raise WrongDateFormatError(f"Something's not right with date format, received: {date}")
+                    check_interval = date
+
             logging.debug(f"GOT: {train_code}, {date}, {hours}, {stations}")
             train = structs.Train(
                 id=-1,
@@ -72,7 +85,8 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
                 depart_date=full_date,
                 user=update.message.from_user.id,
                 checked=0,
-                check_daily=date == "sempre"
+                check_daily=check_daily,
+                check_interval=check_interval
             )
             db_utils.insert_train_in_db(train, conn)
             full_date_fmt = full_date.strftime("%d/%m/%Y %H:%M") if date != "sempre" else full_date.strftime("%H:%M")

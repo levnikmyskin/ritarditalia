@@ -10,16 +10,12 @@ services:
       - ./:/app
     restart: always
 
-  db:
-    image: mariadb
-    container_name: db
-    volumes:
-      - db_vol:/var/lib/mysql
+#  db:
+#    image: mariadb
+#    container_name: db
+#    volumes:
+#      - db_vol:/var/lib/mysql
 
 volumes:
   db_vol:
 
-networks:
-  default:
-    external:
-      name: 420net
