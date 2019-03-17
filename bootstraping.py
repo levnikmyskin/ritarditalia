@@ -14,3 +14,7 @@ def insert_stations_in_db(tsv_path: str):
     conn.commit()
     cursor.close()
     conn.close()
+
+
+if __name__ == "__main__":
+    insert_stations_in_db("./stazioni.tsv")

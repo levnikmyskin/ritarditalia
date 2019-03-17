@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 00:36+0100\n"
+"POT-Creation-Date: 2019-03-17 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,13 +35,16 @@ msgstr ""
 msgid ""
 "Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
 "`/`. Te ne mostro alcuni:\n"
-"\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, puoi "
-"usarlo \tper monitorare un treno.Es. scrivi `/monitora 12855 sempre 3:06`.\n"
+"\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm OPPURE "
+"lun-mer,gio,ven}, puoi usarlo \tper monitorare un treno.Es. scrivi `/"
+"monitora 12855 sempre 3:06`.\n"
 "\tAltro es. /monitora 511 09/10/2019 3:06;\n"
-"\t2. /english change the language to english;\n"
-"\t3. /italian cambia la lingua in italiano;\n"
-"\t4. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
-"\t5. /help {comando} ottieni aiuto su un comando, es. /help monitora.\n"
+"\tO ancora /monitora 511 lun-mer,ven 16:20;\n"
+"\t2. Invia un biglietto in pdf al bot per aggiungerlo!\t3. /english change "
+"the language to english;\n"
+"\t4. /italian cambia la lingua in italiano;\n"
+"\t5. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
+"\t6. /help {comando} ottieni aiuto su un comando, es. /help monitora.\n"
 "Se sei uno sviluppatore e vuoi contribuire, trovi il progetto qui https://"
 "github.com/levnikmyskin/ritarditalia"
 msgstr ""
@@ -50,26 +53,31 @@ msgstr ""
 "\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, co "
 "questo tieni sott'occhio er treno. Es. scrivi `/monitora 12855 sempre "
 "3:06`.\n"
-"Altro es. /monitora 511 09/10/2019 3:06. Oh calcola che 3 e 06 è l'ora in "
+"\tAltro es. /monitora 511 09/10/2019 3:06. Oh calcola che 3 e 06 è l'ora in "
 "cui devi partì te eh;\n"
+"\tO ancora /monitora 511 lun-mer,ven 16:20;\n"
 "\t2. /english change the language to english;\n"
 "\t3. /italian cambia la lingua in italiano;\n"
 "\t4. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
 "\t5. /help {comando} te do na mano a capì i comandi;\n"
-"Se te piace programmà e hai deciso che è ora de smette de vedè i campionati koreani de beer pong, "
-"puoi contribuire al progetto qui https://github.com/levnikmyskin/ritarditalia"
+"Se te piace programmà e hai deciso che è ora de smette de vedè i campionati "
+"koreani de beer pong, puoi contribuire al progetto qui https://github.com/"
+"levnikmyskin/ritarditalia"
 
-#: app_strings.py:20 app_strings.py:24 app_strings.py:25
+#: app_strings.py:20 app_strings.py:24 app_strings.py:25 app_strings.py:26
+#: app_strings.py:27
 msgid "Lingua cambiata in italiano :D"
 msgstr "Eddaje!"
 
-#: app_strings.py:22 app_strings.py:26 app_strings.py:27
+#: app_strings.py:22 app_strings.py:26 app_strings.py:27 app_strings.py:28
+#: app_strings.py:29
 msgid "Aggiunto il treno, informazioni:\n"
 msgstr ""
 "E sbim, aggiunto. Qualche dettaglio di cui non te frega un cazzo ma potresti "
 "almeno fa finta:\n"
 
-#: app_strings.py:24 app_strings.py:28 app_strings.py:29
+#: app_strings.py:24 app_strings.py:28 app_strings.py:29 app_strings.py:30
+#: app_strings.py:31
 msgid ""
 "C'è stato un errore e non è stato possibile aggiungere il treno, controlla "
 "che il comando sia scritto corettamente"
@@ -77,17 +85,20 @@ msgstr ""
 "È andato tutto a puttane zì, hai sbagliato a scrive il comando eh? Madonna "
 "du comandi devi scrive, manco quello"
 
-#: app_strings.py:26 app_strings.py:30 app_strings.py:31
+#: app_strings.py:26 app_strings.py:30 app_strings.py:31 app_strings.py:32
+#: app_strings.py:33
 msgid "C'è stato un errore nell'eliminare il treno"
 msgstr ""
 "Eh niente, er treno non s'è eliminato. Quando c'è da sopprime sopprimono "
 "sempre, quando me tocca eliminà a me mai che funziona oh"
 
-#: app_strings.py:28 app_strings.py:32 app_strings.py:33
+#: app_strings.py:28 app_strings.py:32 app_strings.py:33 app_strings.py:34
+#: app_strings.py:35
 msgid "Non è stato possibile ottenere lo status del tuo treno :("
 msgstr "No zì calcola lo status del treno non c'è. Se famo na briscolata?"
 
-#: app_strings.py:30 app_strings.py:34 app_strings.py:35
+#: app_strings.py:30 app_strings.py:34 app_strings.py:35 app_strings.py:36
+#: app_strings.py:37
 msgid "Treno"
 msgstr ""
 
@@ -95,15 +106,18 @@ msgstr ""
 msgid "I tuoi treni"
 msgstr "Li treni tua"
 
-#: app_strings.py:31 app_strings.py:35 app_strings.py:36
+#: app_strings.py:31 app_strings.py:35 app_strings.py:36 app_strings.py:37
+#: app_strings.py:38
 msgid "Status treno"
 msgstr "A che punto sta er treno"
 
-#: app_strings.py:32 app_strings.py:36 app_strings.py:37
+#: app_strings.py:32 app_strings.py:36 app_strings.py:37 app_strings.py:38
+#: app_strings.py:39
 msgid "Elimina treno"
 msgstr "Sbraga treno"
 
 #: app_strings.py:32 app_strings.py:33 app_strings.py:37 app_strings.py:38
+#: app_strings.py:39 app_strings.py:40
 msgid ""
 "Lo stato del treno non sembra essere disponibile, forse deve ancora partire?"
 msgstr ""
@@ -111,6 +125,7 @@ msgstr ""
 "che ansia c'hai cristo santo"
 
 #: app_strings.py:33 app_strings.py:34 app_strings.py:38 app_strings.py:39
+#: app_strings.py:40 app_strings.py:41
 msgid "Il treno è stato eliminato!"
 msgstr "Sbragato er treno, sbimme!"
 
@@ -119,23 +134,32 @@ msgid "Il treno è in ritardo di {}!"
 msgstr "Mannaggia la troia, il treno è in ritardo di {}"
 
 #: app_strings.py:36 app_strings.py:37 app_strings.py:41 app_strings.py:42
+#: app_strings.py:43 app_strings.py:44
 msgid "Il treno è in orario!"
 msgstr "Oh zì er treno è in orario, potrebbe esse pure in anticipo calcola"
 
-#: app_strings.py:36 app_strings.py:40 app_strings.py:41
+#: app_strings.py:36 app_strings.py:40 app_strings.py:41 app_strings.py:42
+#: app_strings.py:43
 msgid "Il treno è in ritardo di {} minuti!"
 msgstr ""
 
-#: app_strings.py:43 app_strings.py:44
+#: app_strings.py:45 app_strings.py:46
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/monitora {codice_treno} {data|sempre} {ora}`\n\n"
+"\t\t`/monitora {codice_treno} {data|sempre|intervallo} {ora} (carrozza) "
+"(posto)`\n"
+"\n"
 "Questo comando ti permette di aggiungere un treno e monitorare il suo "
 "ritardo fino a 4 ore prima della tua partenza.\n"
 "Al momento, non è possibile cercare un treno, dovrai quindi averne il "
-"codice. Per cominciare a monitorare un treno scrivi un messaggio come questo "
-"al bot:\n"
+"codice. Puoi usare il trattino `-` per specificare un intervallo di giorni, "
+"la virgola `,` per specificare i giorni singoli (es. mar-gio,sab,"
+"dom) Carrozza e posto sono opzionali!\n"
+"Infine, ricorda che se hai un biglietto in PDF, puoi inviarlo al bot e "
+"verranno aggiunti i treni contenuti nel biglietto.\n"
+"Per cominciare a monitorare un treno scrivi un messaggio come questo al "
+"bot:\n"
 "\n"
 "\t\t`/monitora 8626 03/03/2019 16:57`\n"
 "\n"
@@ -145,69 +169,118 @@ msgid ""
 "\t\t`/monitora 8626 sempre 16:57`\n"
 "\n"
 "Con questo aggiungi il treno 8626, specificando che parti tutti i giorni "
-"alle 16:57"
-msgstr "Funzionamento:\n"
+"alle 16:57\n"
 "\n"
-"\t\t`/monitora {codice_treno} {data|sempre} {ora}`\n\n"
-"Co sto comando aggiungi un treno così che er bot t'avverte prima se sta in ritardo (er treno, no il bot)."
-"Alla fine a smadonnà smadonnerai comunque, ma per lo meno cominci a farlo 4 ore prima."
-"Per partire verso questo viaggio incredibile, scrivi na cosa del genere:"
-"\n\n"
+"\t\t`/monitora 8626 lun-mer,ven 16:57`\n"
+"\n"
+"Con questo aggiungi il treno 8626, specificando che parti solo lunedì, "
+"martedì, mercoledì e venerdì alle 16:57\n"
+"\n"
+"\t\t`/monitora 8626 gio,ven,sab 16:57 4 11D`\n"
+"\n"
+"Con questo aggiungi il treno 8626, specificando che parti solo giovedì, "
+"venerdì e sabato alle 16:57, carrozza 4, posto 11D"
+msgstr ""
+"Funzionamento:\n"
+"\n"
+"\t\t`/monitora {codice_treno} {data|sempre|intervallo} {ora} (carrozza) "
+"(posto)`\n"
+"\n"
+"Co sto comando aggiungi un treno così che er bot t'avverte prima se sta in "
+"ritardo (er treno, no il bot). Alla fine a smadonnà smadonnerai comunque, ma "
+"per lo meno cominci a farlo 4 ore prima. Puoi usare il trattino `-` per "
+"specificare un intervallo di giorni, la virgola `,` per specificare i giorni "
+"singoli (es. mar-gio,sab,dom) Carrozza e posto so opzionali!\n"
+"Poi comunque se te pesa er culo puoi inviare il biglietto in PDF e i treni "
+"verranno aggiunti da soli.\n"
+"Per partire verso questo viaggio incredibile, scrivi na cosa del genere:\n"
+"\n"
 "\t\t`/monitora 8626 03/03/2019 16:57`\n"
 "\n"
-"Co questo aggiungi il treno 8626, specificando che te piacerebbe partì il 3 marzo 2019 "
-"alle 16:57 (e invece...)\n"
+"Co questo aggiungi il treno 8626, specificando che te piacerebbe partì il 3 "
+"marzo 2019 alle 16:57 (e invece...)\n"
 "\n"
 "\t\t`/monitora 8626 sempre 16:57`\n"
 "\n"
-"Co questo aggiungi il treno 8626, specificando che parti tutti i giorni alle 16:57, madonna calcola me dispiace pe te "
-"zì, ma sei sicuro de volè continuà a fa sta vita?"
+"Co questo aggiungi il treno 8626, specificando che parti tutti i giorni alle "
+"16:57\n"
+"\n"
+"\t\t`/monitora 8626 lun-mer,ven 16:57`\n"
+"\n"
+"Co questo aggiungi il treno 8626, specificando che parti solo lunedì, "
+"martedì, mercoledì e venerdì alle 16:57\n"
+"\n"
+"\t\t`/monitora 8626 gio,ven,sab 16:57 4 11D`\n"
+"\n"
+"Co questo aggiungi il treno 8626, specificando che parti solo giovedì, "
+"venerdì e sabato alle 16:57, carrozza 4, posto 11D"
 
-#: app_strings.py:52 app_strings.py:53
+#: app_strings.py:52 app_strings.py:53 app_strings.py:65 app_strings.py:66
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/status`\n\n"
+"\t\t`/status`\n"
+"\n"
 "Questo comando ti permette di vedere i treni che hai aggiunto. Puoi cliccare/"
 "toccare su un treno per vederne i ritardi (ammesso che il treno sia già "
 "partito). Se vuoi invece eliminare un treno,usa `/delete`"
-msgstr "Funzionamento:\n"
+msgstr ""
+"Funzionamento:\n"
 "\n"
-"\t\t`/status`\n\n"
-"Co sto comando vedi i treni che hai aggiunto, nel caso te fossi un po' rincojonito e non te ricordi più. Non solo, se"
-" ce clicchi o ce tocchi ;) vedi pure ando sta e se c'ha ritardo, a meno che er treno non è ancora partito e me sa che"
-" a quel punto non è lui che c'ha ritardo"
+"\t\t`/status`\n"
+"\n"
+"Co sto comando vedi i treni che hai aggiunto, nel caso te fossi un po' "
+"rincojonito e non te ricordi più. Non solo, se ce clicchi o ce tocchi ;) "
+"vedi pure ando sta e se c'ha ritardo, a meno che er treno non è ancora "
+"partito e me sa che a quel punto non è lui che c'ha ritardo"
 
-#: app_strings.py:57 app_strings.py:58
+#: app_strings.py:57 app_strings.py:58 app_strings.py:70 app_strings.py:71
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/delete`\n\n"
+"\t\t`/delete`\n"
+"\n"
 "Questo comando ti permette di eliminare i treni che hai aggiunto. Puoi "
 "cliccare/toccare su un treno per eliminarlo."
-msgstr "Funzionamento:\n"
+msgstr ""
+"Funzionamento:\n"
 "\n"
-"\t\t`/delete`\n\n"
-"Oh, sto comando è er mio preferito, sbraghi i treni che hai aggiunto co na goduria immensa, secondo me ogni tanto "
-"è bello aggiunge un treno solo per eliminarlo dopo"
+"\t\t`/delete`\n"
+"\n"
+"Oh, sto comando è er mio preferito, sbraghi i treni che hai aggiunto co na "
+"goduria immensa, secondo me ogni tanto è bello aggiunge un treno solo per "
+"eliminarlo dopo"
 
-#: app_strings.py:61 app_strings.py:62
+#: app_strings.py:61 app_strings.py:62 app_strings.py:74 app_strings.py:75
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/italian`\n\n"
+"\t\t`/italian`\n"
+"\n"
 "Cambia la lingua in italiano"
 msgstr ""
 
-#: app_strings.py:64 app_strings.py:65
+#: app_strings.py:64 app_strings.py:65 app_strings.py:77 app_strings.py:78
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/monello`\n\n"
+"\t\t`/monello`\n"
+"\n"
 ";) Per viaggi mai banali, per treni che non devono chiedere mai, per ritardi "
 "oltre ogni aspettativa"
 msgstr ""
 
-#: app_strings.py:67 app_strings.py:68
+#: app_strings.py:67 app_strings.py:68 app_strings.py:80 app_strings.py:81
 msgid "The english language is not available yet :("
 msgstr ""
+
+#: app_strings.py:70 app_strings.py:82 app_strings.py:83
+msgid ""
+"C'è stato un errore e non è stato possibile aggiungere il treno dal pdf :("
+msgstr ""
+
+#: app_strings.py:71 app_strings.py:83 app_strings.py:84
+msgid "Il treno è nel passato, non è possibile aggiungerlo!"
+msgstr ""
+
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 00:31+0100\n"
+"POT-Creation-Date: 2019-03-17 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,91 +29,100 @@ msgstr ""
 msgid ""
 "Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
 "`/`. Te ne mostro alcuni:\n"
-"\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, puoi usarlo "
-"\tper monitorare un treno.Es. scrivi `/monitora 12855 sempre 3:06`.\n"
+"\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm OPPURE "
+"lun-mer,gio,ven}, puoi usarlo \tper monitorare un treno.Es. scrivi `/"
+"monitora 12855 sempre 3:06`.\n"
 "\tAltro es. /monitora 511 09/10/2019 3:06;\n"
-"\t2. /english change the language to english;\n"
-"\t2. /italian cambia la lingua in italiano;\n"
-"\t3. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
-"Se sei uno sviluppatore e vuoi contribuire, trovi il progetto qui "
-"https://github.com/levnikmyskin/ritarditalia"
+"\tO ancora /monitora 511 lun-mer,ven 16:20;\n"
+"\t2. Invia un biglietto in pdf al bot per aggiungerlo!\t3. /english change "
+"the language to english;\n"
+"\t4. /italian cambia la lingua in italiano;\n"
+"\t5. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
+"\t6. /help {comando} ottieni aiuto su un comando, es. /help monitora.\n"
+"Se sei uno sviluppatore e vuoi contribuire, trovi il progetto qui https://"
+"github.com/levnikmyskin/ritarditalia"
 msgstr ""
 
-#: app_strings.py:20 app_strings.py:24
+#: app_strings.py:20 app_strings.py:24 app_strings.py:25 app_strings.py:26
+#: app_strings.py:27
 msgid "Lingua cambiata in italiano :D"
 msgstr ""
 
-#: app_strings.py:22 app_strings.py:26
+#: app_strings.py:22 app_strings.py:26 app_strings.py:27 app_strings.py:28
+#: app_strings.py:29
 msgid "Aggiunto il treno, informazioni:\n"
 msgstr ""
 
-#: app_strings.py:24 app_strings.py:28
+#: app_strings.py:24 app_strings.py:28 app_strings.py:29 app_strings.py:30
+#: app_strings.py:31
 msgid ""
 "C'è stato un errore e non è stato possibile aggiungere il treno, controlla "
 "che il comando sia scritto corettamente"
 msgstr ""
 
-#: app_strings.py:26 app_strings.py:30
+#: app_strings.py:26 app_strings.py:30 app_strings.py:31 app_strings.py:32
+#: app_strings.py:33
 msgid "C'è stato un errore nell'eliminare il treno"
 msgstr ""
 
-#: app_strings.py:28 app_strings.py:32
+#: app_strings.py:28 app_strings.py:32 app_strings.py:33 app_strings.py:34
+#: app_strings.py:35
 msgid "Non è stato possibile ottenere lo status del tuo treno :("
 msgstr ""
 
-#: app_strings.py:30 app_strings.py:34
+#: app_strings.py:30 app_strings.py:34 app_strings.py:35 app_strings.py:36
+#: app_strings.py:37
 msgid "Treno"
 msgstr ""
 
-#: app_strings.py:31 app_strings.py:35
+#: app_strings.py:31 app_strings.py:35 app_strings.py:36 app_strings.py:37
+#: app_strings.py:38
 msgid "Status treno"
 msgstr ""
 
-#: app_strings.py:32 app_strings.py:36
+#: app_strings.py:32 app_strings.py:36 app_strings.py:37 app_strings.py:38
+#: app_strings.py:39
 msgid "Elimina treno"
 msgstr ""
 
-#: app_strings.py:33 app_strings.py:37
+#: app_strings.py:33 app_strings.py:37 app_strings.py:38 app_strings.py:39
+#: app_strings.py:40
 msgid ""
 "Lo stato del treno non sembra essere disponibile, forse deve ancora partire?"
 msgstr ""
 
-#: app_strings.py:34 app_strings.py:38
+#: app_strings.py:34 app_strings.py:38 app_strings.py:39 app_strings.py:40
+#: app_strings.py:41
 msgid "Il treno è stato eliminato!"
 msgstr ""
 
-#: app_strings.py:36 app_strings.py:40
+#: app_strings.py:36 app_strings.py:40 app_strings.py:41 app_strings.py:42
+#: app_strings.py:43
 msgid "Il treno è in ritardo di {} minuti!"
 msgstr ""
 
-#: app_strings.py:37 app_strings.py:41
+#: app_strings.py:37 app_strings.py:41 app_strings.py:42 app_strings.py:43
+#: app_strings.py:44
 msgid "Il treno è in orario!"
 msgstr ""
 
-#: app_strings.py:12
-msgid ""
-"Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
-"`/`. Te ne mostro alcuni:\n"
-"\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, puoi "
-"usarlo \tper monitorare un treno.Es. scrivi `/monitora 12855 sempre 3:06`.\n"
-"\tAltro es. /monitora 511 09/10/2019 3:06;\n"
-"\t2. /english change the language to english;\n"
-"\t2. /italian cambia la lingua in italiano;\n"
-"\t3. /monello cambia lingua in una cazzona, è n po' volgare calcola;\n"
-"Se sei uno sviluppatore e vuoi contribuire, trovi il progetto qui https://"
-"github.com/levnikmyskin/ritarditalia"
-msgstr ""
-
-#: app_strings.py:43
+#: app_strings.py:45 app_strings.py:46
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/monitora {codice_treno} {data|sempre} {ora}`\n\n"
+"\t\t`/monitora {codice_treno} {data|sempre|intervallo} {ora} (carrozza) "
+"(posto)`\n"
+"\n"
 "Questo comando ti permette di aggiungere un treno e monitorare il suo "
 "ritardo fino a 4 ore prima della tua partenza.\n"
 "Al momento, non è possibile cercare un treno, dovrai quindi averne il "
-"codice. Per cominciare a monitorare un treno scrivi un messaggio come questo "
-"al bot:\n"
+"codice. Puoi usare il trattino `-` per specificare un intervallo di giorni, "
+"la virgola `,` per specificare i giorni singoli (es. mar-gio,sab,"
+"dom) Carrozza e posto sono opzionali!\n"
+"Infine, ricorda che se hai un biglietto in PDF, puoi inviarlo al bot e "
+"verranno aggiunti i treni contenuti nel biglietto.\n"
+"Per cominciare a monitorare un treno scrivi un messaggio come questo al "
+"bot:\n"
 "\n"
 "\t\t`/monitora 8626 03/03/2019 16:57`\n"
 "\n"
@@ -123,45 +132,68 @@ msgid ""
 "\t\t`/monitora 8626 sempre 16:57`\n"
 "\n"
 "Con questo aggiungi il treno 8626, specificando che parti tutti i giorni "
-"alle 16:57"
+"alle 16:57\n"
+"\n"
+"\t\t`/monitora 8626 lun-mer,ven 16:57`\n"
+"\n"
+"Con questo aggiungi il treno 8626, specificando che parti solo lunedì, "
+"martedì, mercoledì e venerdì alle 16:57\n"
+"\n"
+"\t\t`/monitora 8626 gio,ven,sab 16:57 4 11D`\n"
+"\n"
+"Con questo aggiungi il treno 8626, specificando che parti solo giovedì, "
+"venerdì e sabato alle 16:57, carrozza 4, posto 11D"
 msgstr ""
 
-#: app_strings.py:52
+#: app_strings.py:52 app_strings.py:53 app_strings.py:65 app_strings.py:66
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/status`\n\n"
+"\t\t`/status`\n"
+"\n"
 "Questo comando ti permette di vedere i treni che hai aggiunto. Puoi cliccare/"
 "toccare su un treno per vederne i ritardi (ammesso che il treno sia già "
 "partito). Se vuoi invece eliminare un treno,usa `/delete`"
 msgstr ""
 
-#: app_strings.py:57
+#: app_strings.py:57 app_strings.py:58 app_strings.py:70 app_strings.py:71
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/delete`\n\n"
+"\t\t`/delete`\n"
+"\n"
 "Questo comando ti permette di eliminare i treni che hai aggiunto. Puoi "
 "cliccare/toccare su un treno per eliminarlo."
 msgstr ""
 
-#: app_strings.py:61
+#: app_strings.py:61 app_strings.py:62 app_strings.py:74 app_strings.py:75
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/italian`\n\n"
+"\t\t`/italian`\n"
+"\n"
 "Cambia la lingua in italiano"
 msgstr ""
 
-#: app_strings.py:64
+#: app_strings.py:64 app_strings.py:65 app_strings.py:77 app_strings.py:78
 msgid ""
 "Funzionamento:\n"
 "\n"
-"\t\t`/monello`\n\n"
+"\t\t`/monello`\n"
+"\n"
 ";) Per viaggi mai banali, per treni che non devono chiedere mai, per ritardi "
 "oltre ogni aspettativa"
 msgstr ""
 
-#: app_strings.py:67
+#: app_strings.py:67 app_strings.py:68 app_strings.py:80 app_strings.py:81
 msgid "The english language is not available yet :("
+msgstr ""
+
+#: app_strings.py:70 app_strings.py:82 app_strings.py:83
+msgid ""
+"C'è stato un errore e non è stato possibile aggiungere il treno dal pdf :("
+msgstr ""
+
+#: app_strings.py:71 app_strings.py:83 app_strings.py:84
+msgid "Il treno è nel passato, non è possibile aggiungerlo!"
 msgstr ""
