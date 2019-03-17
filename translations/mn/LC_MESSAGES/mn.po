@@ -278,9 +278,11 @@ msgstr ""
 msgid ""
 "C'è stato un errore e non è stato possibile aggiungere il treno dal pdf :("
 msgstr ""
+"No zì che m'hai mandato? Non so riuscito a aggiunge il treno :("
 
 #: app_strings.py:71 app_strings.py:83 app_strings.py:84
 msgid "Il treno è nel passato, non è possibile aggiungerlo!"
 msgstr ""
+"Oh ma il treno è nel passato, la macchina del tempo ancora non ce l'avemo (quella pe i salti temporali non arriva così indietro)"
 
 
