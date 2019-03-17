@@ -70,12 +70,13 @@ def _is_daily_update_to_be_sent(train):
     # day interval specified by the user. To do this, we get the "days" and "interval" groups from the regex
     # and we return true
     now_date = datetime.now()
-    interval = interval_pattern.match(train.check_interval)
     is_in_day_interval = True
-    if interval:
-        days = interval.group("days")
-        interval = interval.group("interval")
-        is_in_day_interval = _is_in_day_interval(days, interval, now_date.weekday())
+    if train.check_interval is not None:
+        interval = interval_pattern.match(train.check_interval)
+        if interval:
+            days = interval.group("days")
+            interval = interval.group("interval")
+            is_in_day_interval = _is_in_day_interval(days, interval, now_date.weekday())
 
     return train.depart_date.time() > now_date.time() and train.check_daily and is_in_day_interval
 
