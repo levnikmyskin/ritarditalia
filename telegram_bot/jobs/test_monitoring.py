@@ -32,12 +32,14 @@ class TestMonitoring(unittest.TestCase):
         test3 = "lun-ven"
         test4 = "lun,mar,mer"
         test5 = "lun-mer,ven"
+        test6 = "lun"
 
         match1 = interval_pattern.match(test1)
         match2 = interval_pattern.match(test2)
         match3 = interval_pattern.match(test3)
         match4 = interval_pattern.match(test4)
         match5 = interval_pattern.match(test5)
+        match6 = interval_pattern.match(test6)
 
         self.assertTrue(all([match1, match2, match3, match4, match5]))
         self.assertEqual(match1.group("days"), "lun,mar,mer,")
@@ -50,6 +52,7 @@ class TestMonitoring(unittest.TestCase):
         self.assertEqual(match4.group("interval"), None)
         self.assertEqual(match5.group("days"), "ven")
         self.assertEqual(match5.group("interval"), "lun-mer")
+        self.assertEqual(match6.group("days"), "lun")
 
     def test_is_in_day_interval(self):
         test1 = "lun,mar,mer,ven-sab"

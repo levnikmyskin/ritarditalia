@@ -82,3 +82,5 @@ english_help = N_("The english language is not available yet :(")
 
 error_pdf = N_("C'è stato un errore e non è stato possibile aggiungere il treno dal pdf :(")
 train_in_past_error = N_("Il treno è nel passato, non è possibile aggiungerlo!")
+
+api_error = N_("Sembra esserci stato un errore da parte di Trenitalia : / riprova più tardi")
