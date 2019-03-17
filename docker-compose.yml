@@ -13,13 +13,25 @@ services:
   db:
     image: mariadb
     container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PWD
+      - MYSQL_DATABASE=$MYSQL_DB
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
     volumes:
       - db_vol:/var/lib/mysql
+    restart: always
+
+  phpadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      - PMA_HOST=$MYSQL_DB
+      # DON'T SET THESE TWO VARIABLES HERE IN PRODUCTION
+      - PMA_USER=$MYSQL_USER
+      - PMA_PASSWORD=$MYSQL_PASSWORD
 
 volumes:
   db_vol:
 
-networks:
-  default:
-    external:
-      name: 420net

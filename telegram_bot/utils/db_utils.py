@@ -74,12 +74,16 @@ def has_mail_been_parsed(mail_id: str, conn: MySQLdb.Connection) -> bool:
     return bool(cursor.fetchone())
 
 
-def insert_train_in_db(train: Train, conn: MySQLdb.Connection):
+def insert_train_in_db(train: Train, conn: MySQLdb.Connection, commit=True):
     if train.depart_date >= datetime.now() or train.check_daily:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO monitoring (train, station, departDate, user, check_daily) VALUES(%s, %s, %s, %s, %s)",
-                       (train.code, train.depart_stat, train.depart_date, train.user, train.check_daily))
-        conn.commit()
+        cursor.execute(
+            "INSERT INTO monitoring (train, station, departDate, user, check_daily, check_interval, coach, seat) "
+            "VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",
+            (train.code, train.depart_stat, train.depart_date, train.user, train.check_daily, train.check_interval,
+             train.coach, train.seat))
+        if commit:
+            conn.commit()
         cursor.close()
     else:
         raise TrainInPastError(f"Train depart date: {train.depart_date}; now: {datetime.now()}")
@@ -88,8 +92,8 @@ def insert_train_in_db(train: Train, conn: MySQLdb.Connection):
 def get_all_trains(chat_id: str, conn: MySQLdb.Connection) -> [Train]:
     trains = list()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily FROM monitoring WHERE "
-                   "user=%s", (chat_id,))
+    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily, check_interval, coach, seat "
+                   "FROM monitoring WHERE user=%s", (chat_id,))
     for row in cursor:
         trains.append(Train(*row))
     cursor.close()
@@ -99,8 +103,9 @@ def get_all_trains(chat_id: str, conn: MySQLdb.Connection) -> [Train]:
 def get_subset_of_trains(chat_id: str, start: int, conn: MySQLdb.Connection) -> [Train]:
     trains = list()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily FROM monitoring"
-                   " WHERE id >= %s AND user = %s LIMIT 7", (start, chat_id))
+    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily, check_interval, coach, seat "
+                   "FROM monitoring "
+                   "WHERE id >= %s AND user = %s LIMIT 7", (start, chat_id))
     for row in cursor:
         trains.append(Train(*row))
     cursor.close()
@@ -109,8 +114,9 @@ def get_subset_of_trains(chat_id: str, start: int, conn: MySQLdb.Connection) -> 
 
 def get_train(pk: int, conn: MySQLdb.Connection) -> Train:
     cursor = conn.cursor()
-    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily FROM monitoring WHERE "
-                   "id=%s", (pk,))
+    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily, check_interval, coach, seat "
+                   "FROM monitoring "
+                   "WHERE id=%s", (pk,))
     row = cursor.fetchone()
     train = Train(*row)
     cursor.close()
@@ -140,13 +146,12 @@ def get_trains_to_monitor(conn: MySQLdb.Connection) -> [Train]:
     cursor = conn.cursor()
 
     max_date = datetime.now() + timedelta(hours=4)
-    cursor.execute("SELECT id,train,station,departDate,user,checked,check_daily "
+    cursor.execute("SELECT id, train, station, departDate, user, checked, check_daily, check_interval, coach, seat "
                    "FROM monitoring WHERE (departDate BETWEEN %s AND %s"
-                   "OR check_daily=TRUE) AND checked < 3", (datetime.now(), max_date))
-    for id, train, station, depart_date, user, checked, check_daily in cursor:
+                   "OR check_daily=TRUE)", (datetime.now(), max_date))
+    for elems in cursor:
         train_lists.append(
-            Train(id=id, code=train, depart_stat=station, depart_date=depart_date, user=user, checked=checked,
-                  check_daily=check_daily)
+            Train(*elems)
         )
     return train_lists
 
