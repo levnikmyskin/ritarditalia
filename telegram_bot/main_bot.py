@@ -224,13 +224,12 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=delete_train, pattern=r'delete \d+'))
     updater.dispatcher.add_handler(MessageHandler(filters=Filters.document, callback=train_from_pdf))
     updater.job_queue.run_repeating(monitor, interval=3600, first=0)
-    updater.start_polling()
-    # updater.start_webhook(
-    #     listen='0.0.0.0',
-    #     port=5000,
-    #     url_path=token,
-    #     webhook_url=f'https://{BOT_DOMAIN}/{token}'
-    # )
+    updater.start_webhook(
+        listen='0.0.0.0',
+        port=5000,
+        url_path=token,
+        webhook_url=f'https://{BOT_DOMAIN}/{token}'
+    )
     updater.idle()
 
 
