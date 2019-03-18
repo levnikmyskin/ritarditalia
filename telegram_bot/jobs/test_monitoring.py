@@ -72,11 +72,13 @@ class TestMonitoring(unittest.TestCase):
         self.assertTrue(_is_in_day_interval(matches[3].group("days"), matches[3].group("interval"), days_mapping["mar"]))
 
     def test_is_daily_update_to_be_sent(self):
-        train2 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=True, check_interval="lun,mar,mer,gio-dom")
-        train3 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=False, check_interval="lun,mar,mer,gio-dom")
+        train2 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=True, check_interval="lun,mar,mer,gio-dom", coach=None, seat=None)
+        train3 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=False, check_interval="lun,mar,mer,gio-dom", coach=None, seat=None)
+        train4 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now() + timedelta(hours=3), user="1", checked=0, check_daily=True, check_interval="lun", coach=None, seat=None)
         self.assertTrue(_is_daily_update_to_be_sent(self.train))
         self.assertFalse(_is_daily_update_to_be_sent(train2))
         self.assertFalse(_is_daily_update_to_be_sent(train3))
+        self.assertTrue(_is_daily_update_to_be_sent(train4))
 
 
 if __name__ == '__main__':

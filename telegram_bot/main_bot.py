@@ -68,7 +68,7 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
             # TODO ask user which of the stations he wants
             pass
         else:
-            check_interval = ""
+            check_interval = None
             check_daily = False
             if len(date) >= 30:
                 # What the heck did the user just sent? Lol
@@ -84,7 +84,7 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
                     if not interval_pattern.match(date):
                         raise WrongDateFormatError(f"Something's not right with date format, received: {date}")
                     check_interval = date
-                    full_date_fmt = f"{check_interval} {hours}"
+                    full_date_fmt = f"{check_interval or ''} {hours}"
                 else:
                     full_date_fmt = hours
 

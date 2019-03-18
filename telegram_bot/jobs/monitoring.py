@@ -19,7 +19,7 @@ from config import *
 # Grouping them in the interval and days groups
 interval_pattern = re.compile(r'((?=(\w{3},)*(?P<interval>\w{3}-\w{3})))?(?=(\w{3}-\w{3},)?(?P<days>(\w{3}(([^-]|$),?))*))')
 interval_days = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
-days_mapping = dict(lun=1, mar=2, mer=3, gio=4, ven=5, sab=6, dom=0)
+days_mapping = dict(lun=0, mar=1, mer=2, gio=3, ven=4, sab=5, dom=6)
 
 
 def consume(iterator, n=None):
@@ -71,7 +71,7 @@ def _is_daily_update_to_be_sent(train):
     # and we return true
     now_date = datetime.now()
     is_in_day_interval = True
-    if train.check_interval is not None:
+    if train.check_interval:
         interval = interval_pattern.match(train.check_interval)
         if interval:
             days = interval.group("days")
