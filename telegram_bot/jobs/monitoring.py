@@ -2,6 +2,8 @@ import MySQLdb
 import app_strings
 import re
 import itertools
+
+from telegram_bot import stickers
 from telegram_bot.utils.language_utils import set_language
 from telegram_bot.utils.trains_api import get_train_status, timestamp_to_italy_datetime
 from telegram_bot.utils.notifications import send_telegram_message
@@ -118,6 +120,10 @@ def run(bot, job):
             message, status_ok = get_status_message(status, train, conn, lang=user.lang)
             if status_ok:
                 send_status_info(train.user, message, conn)
+            else:
+                bot.send_sticker(train.user, stickers.sad_cat)
+                message = f"{_(app_strings.monitoring_api_error)}\nErrore sul treno {train.code}"
+                send_telegram_message(train.user, message)
     conn.close()
 
 
