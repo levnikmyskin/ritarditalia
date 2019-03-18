@@ -14,7 +14,7 @@ import fitz
 import app_strings
 import logging
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG)
+logging.basicConfig(filename='app.log', level=logging.DEBUG, format="%(asctime)-15s %(user)-8s %(message)s")
 
 
 def start(bot: Bot, update: Update):
@@ -181,6 +181,8 @@ def commands_help(bot: Bot, update: Update, conn):
         "english": _(app_strings.english_help)
     }
     command = update.effective_message.text.split(" ")
+    if len(command) == 1:
+        update.message.reply_text(_(app_strings.help_error), parse_mode=ParseMode.MARKDOWN)
     update.message.reply_text(helps.get(command[1], "Riprova"), parse_mode=ParseMode.MARKDOWN)
 
 
@@ -227,7 +229,7 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_status, pattern=r'status \d+'))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=delete_train, pattern=r'delete \d+'))
     updater.dispatcher.add_handler(MessageHandler(filters=Filters.document, callback=train_from_pdf))
-    updater.job_queue.run_repeating(monitor, interval=3600, first=0)
+    updater.job_queue.run_repeating(monitor, interval=2400, first=0)
     updater.start_webhook(
         listen='0.0.0.0',
         port=5000,

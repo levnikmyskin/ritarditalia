@@ -84,3 +84,4 @@ error_pdf = N_("C'è stato un errore e non è stato possibile aggiungere il tren
 train_in_past_error = N_("Il treno è nel passato, non è possibile aggiungerlo!")
 
 api_error = N_("Sembra esserci stato un errore da parte di Trenitalia : / riprova più tardi")
+help_error = N_("Specifica un comando per cui visualizzare l'aiuto. Ad esempio `/help monitora`")
