@@ -9,7 +9,7 @@ def find_train_original_depart_station(train_code: str) -> [str]:
     endpoint = f"http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/{train_code}"
     req = requests.get(endpoint)
     if req.status_code == 200:
-        p = re.compile(r'\|\d+-(?P<station>\w+\d+)', re.MULTILINE)
+        p = re.compile(r'\d+\s-\s(?P<station_name>.+)\|\d+-(?P<station_code>\w+\d+)', re.MULTILINE)
         return p.findall(req.text)
     return list()
 

@@ -5,4 +5,5 @@ trenit_env
 *.log
 config.py
 test_gmail_extraction.py
+*.pdf
 __pycache__

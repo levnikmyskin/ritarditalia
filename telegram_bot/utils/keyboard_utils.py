@@ -1,6 +1,6 @@
 import itertools
 from telegram_bot.utils import db_utils
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import app_strings
 
 
@@ -27,6 +27,22 @@ def train_list_keyboard(callback_key: str, chat_id: str, conn) -> InlineKeyboard
         for group in trains
     ]
     return InlineKeyboardMarkup(buttons)
+
+
+def interval_keyboard(days) -> InlineKeyboardMarkup:
+    buttons = [
+        [InlineKeyboardButton(day, callback_data=day) for day in group if day is not None]
+        for group in grouper(days, 3)
+    ]
+    return InlineKeyboardMarkup(buttons)
+
+
+def stations_keyboard(stations: (str, str)) -> ReplyKeyboardMarkup:
+    buttons = [
+        [KeyboardButton(f"{station[1]}) {station[0]}") for station in group if station is not None]
+        for group in grouper(stations, 3)
+    ]
+    return ReplyKeyboardMarkup(buttons, one_time_keyboard=True)
 
 
 def __get_train_date_for_keyboard(train) -> str:

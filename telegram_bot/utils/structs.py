@@ -1,4 +1,22 @@
 from collections import namedtuple
+import enum
+
+
+class TrainStatus(enum.Enum):
+    AVAILABLE = enum.auto()
+    ERROR = enum.auto()
+    NOT_AVAILABLE = enum.auto()
+
+
+class MonitorConversationStates(enum.Enum):
+    STARTED = enum.auto()
+    SEND_TRAIN_CODE = enum.auto()
+    SEND_STATION = enum.auto()
+    CONFIRM_TRAIN = enum.auto()
+    SEND_DATE = enum.auto()
+    SEND_HOURS = enum.auto()
+    SEND_COACH_SEAT = enum.auto()
+    CONFIRM_MONITORING = enum.auto()
 
 
 Train = namedtuple(

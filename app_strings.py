@@ -31,6 +31,7 @@ added_train = N_("Aggiunto il treno, informazioni:\n")
 error_adding_train = N_("C'è stato un errore e non è stato possibile aggiungere il treno, controlla che il comando"
                         " sia scritto corettamente")
 error_deleting_train = N_("C'è stato un errore nell'eliminare il treno")
+generic_error = N_("C'è stato un errore :(")
 
 error_status_train = N_("Non è stato possibile ottenere lo status del tuo treno :(")
 
@@ -84,3 +85,19 @@ error_pdf = N_("C'è stato un errore e non è stato possibile aggiungere il tren
 train_in_past_error = N_("Il treno è nel passato, non è possibile aggiungerlo!")
 
 api_error = N_("Sembra esserci stato un errore da parte di Trenitalia : / riprova più tardi")
+help_error = N_("Specifica un comando per cui visualizzare l'aiuto. Ad esempio `/help monitora`")
+monitoring_api_error = N_("Lo stato del tuo treno non è disponibile. Probabilmente c'è un errore nei servizi Trenitalia :(")
+
+monitor_step_entrypoint = N_("Ok, inviami il codice del treno oppure usa /stop per terminare")
+multiple_stations_found = N_("Ci sono più treni per questo codice, indicami la stazione di partenza")
+monitor_step_hours = N_("Ok, ora inviami l'orario")
+wrong_date = N_("Il formato della data inviata non è corretto, riprova")
+use_stop_to_end = N_("Usa /stop per terminare")
+mon = N_("lun")
+tue = N_("mar")
+wed = N_("mer")
+thu = N_("gio")
+fri = N_("ven")
+sat = N_("sab")
+sun = N_("dom")
+

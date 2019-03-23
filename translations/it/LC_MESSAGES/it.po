@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-17 20:36+0100\n"
+"POT-Creation-Date: 2019-03-19 21:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,4 +201,16 @@ msgstr ""
 #: app_strings.py:86
 msgid ""
 "Sembra esserci stato un errore da parte di Trenitalia : / riprova più tardi"
+msgstr ""
+
+#: app_strings.py:87
+msgid ""
+"Specifica un comando per cui visualizzare l'aiuto. Ad esempio `/help "
+"monitora`"
+msgstr ""
+
+#: app_strings.py:88
+msgid ""
+"Lo stato del tuo treno non è disponibile. Probabilmente c'è un errore nei "
+"servizi Trenitalia :("
 msgstr ""

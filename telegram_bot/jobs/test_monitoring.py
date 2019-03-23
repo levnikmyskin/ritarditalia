@@ -1,8 +1,8 @@
 import MySQLdb
 import unittest
 from datetime import datetime, timedelta
-from telegram_bot.jobs.monitoring import Train, _get_interval_days, interval_pattern, _is_daily_update_to_be_sent, \
-    _is_in_day_interval, days_mapping
+from telegram_bot.jobs.monitoring import Train, _get_interval_days, _is_daily_update_to_be_sent, \
+    _is_in_day_interval, days_mapping, interval_days, _prepare_days_and_interval
 from config import *
 
 
@@ -26,7 +26,7 @@ class TestMonitoring(unittest.TestCase):
         result_3 = list(_get_interval_days("mer", "dom"))
         self.assertEqual(result_3, ["gio", "ven", "sab"])
 
-    def test_interval_days_regex(self):
+    def test_is_in_day_interval(self):
         test1 = "lun,mar,mer,ven-sab"
         test2 = "sab-lun,mer,gio,ven"
         test3 = "lun-ven"
@@ -34,49 +34,54 @@ class TestMonitoring(unittest.TestCase):
         test5 = "lun-mer,ven"
         test6 = "lun"
 
-        match1 = interval_pattern.match(test1)
-        match2 = interval_pattern.match(test2)
-        match3 = interval_pattern.match(test3)
-        match4 = interval_pattern.match(test4)
-        match5 = interval_pattern.match(test5)
-        match6 = interval_pattern.match(test6)
+        days1, interval1 = _prepare_days_and_interval(test1)
+        self.assertTrue(_is_in_day_interval(days1, interval1, days_mapping["ven"]))
+        self.assertTrue(_is_in_day_interval(days1, interval1, days_mapping["mer"]))
+        self.assertFalse(_is_in_day_interval(days1, interval1, days_mapping["dom"]))
 
-        self.assertTrue(all([match1, match2, match3, match4, match5]))
-        self.assertEqual(match1.group("days"), "lun,mar,mer,")
-        self.assertEqual(match1.group("interval"), "ven-sab")
-        self.assertEqual(match2.group("days"), "mer,gio,ven")
-        self.assertEqual(match2.group("interval"), "sab-lun")
-        self.assertEqual(match3.group("days"), "")
-        self.assertEqual(match3.group("interval"), "lun-ven")
-        self.assertEqual(match4.group("days"), "lun,mar,mer")
-        self.assertEqual(match4.group("interval"), None)
-        self.assertEqual(match5.group("days"), "ven")
-        self.assertEqual(match5.group("interval"), "lun-mer")
-        self.assertEqual(match6.group("days"), "lun")
+        days2, interval2 = _prepare_days_and_interval(test2)
+        self.assertTrue(_is_in_day_interval(days2, interval2, days_mapping["dom"]))
+        self.assertTrue(_is_in_day_interval(days2, interval2, days_mapping["gio"]))
+        self.assertFalse(_is_in_day_interval(days2, interval2, days_mapping["mar"]))
 
-    def test_is_in_day_interval(self):
-        test1 = "lun,mar,mer,ven-sab"
-        test2 = "sab-lun,mer,gio,ven"
-        test3 = "lun-ven"
-        test4 = "lun,mar,mer"
+        days3, interval3 = _prepare_days_and_interval(test3)
+        self.assertTrue(_is_in_day_interval(days3, interval3, days_mapping["mer"]))
+        self.assertTrue(_is_in_day_interval(days3, interval3, days_mapping["mar"]))
+        self.assertTrue(_is_in_day_interval(days3, interval3, days_mapping["lun"]))
+        self.assertTrue(_is_in_day_interval(days3, interval3, days_mapping["ven"]))
+        self.assertFalse(_is_in_day_interval(days3, interval3, days_mapping["sab"]))
 
-        matches = [interval_pattern.match(test1), interval_pattern.match(test2), interval_pattern.match(test3), interval_pattern.match(test4)]
+        days4, interval4 = _prepare_days_and_interval(test4)
+        self.assertTrue(_is_in_day_interval(days4, interval4, days_mapping["lun"]))
+        self.assertTrue(_is_in_day_interval(days4, interval4, days_mapping["mar"]))
+        self.assertTrue(_is_in_day_interval(days4, interval4, days_mapping["mer"]))
+        self.assertFalse(_is_in_day_interval(days4, interval4, days_mapping["gio"]))
 
-        for match in matches:
-            self.assertTrue(_is_in_day_interval(match.group("days"), match.group("interval"), days_mapping["lun"]))
+        days5, interval5 = _prepare_days_and_interval(test5)
+        self.assertTrue(_is_in_day_interval(days5, interval5, days_mapping["lun"]))
+        self.assertTrue(_is_in_day_interval(days5, interval5, days_mapping["mar"]))
+        self.assertTrue(_is_in_day_interval(days5, interval5, days_mapping["ven"]))
+        self.assertFalse(_is_in_day_interval(days5, interval5, days_mapping["gio"]))
 
-        self.assertTrue(_is_in_day_interval(matches[0].group("days"), matches[0].group("interval"), days_mapping["sab"]))
-        self.assertTrue(_is_in_day_interval(matches[1].group("days"), matches[1].group("interval"), days_mapping["dom"]))
-        self.assertFalse(_is_in_day_interval(matches[2].group("days"), matches[2].group("interval"), days_mapping["sab"]))
-        self.assertTrue(_is_in_day_interval(matches[3].group("days"), matches[3].group("interval"), days_mapping["mer"]))
-        self.assertTrue(_is_in_day_interval(matches[3].group("days"), matches[3].group("interval"), days_mapping["mar"]))
+        days6, interval6 = _prepare_days_and_interval(test6)
+        self.assertTrue(_is_in_day_interval(days6, interval6, days_mapping["lun"]))
+        self.assertFalse(_is_in_day_interval(days6, interval6, days_mapping["mar"]))
+        self.assertFalse(_is_in_day_interval(days6, interval6, days_mapping["mer"]))
 
     def test_is_daily_update_to_be_sent(self):
+        today = interval_days[datetime.now().weekday()]
         train2 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=True, check_interval="lun,mar,mer,gio-dom")
         train3 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now(), user="1", checked=0, check_daily=False, check_interval="lun,mar,mer,gio-dom")
+        train4 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now() + timedelta(hours=3),
+                       user="1", checked=0, check_daily=True, check_interval=today, coach=None, seat=None)
+        train5 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now() + timedelta(hours=3), user="1", checked=0, check_daily=True, check_interval=f"{today}-mar")
+        train6 = Train(id=1, code='12280', depart_stat='S09150', depart_date=datetime.now() + timedelta(hours=3), user="1", checked=0, check_daily=True, check_interval=f"lun-mer,ven-dom,{today}")
         self.assertTrue(_is_daily_update_to_be_sent(self.train))
         self.assertFalse(_is_daily_update_to_be_sent(train2))
         self.assertFalse(_is_daily_update_to_be_sent(train3))
+        self.assertTrue(_is_daily_update_to_be_sent(train4))
+        self.assertTrue(_is_daily_update_to_be_sent(train5))
+        self.assertTrue(_is_daily_update_to_be_sent(train6))
 
 
 if __name__ == '__main__':
