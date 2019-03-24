@@ -163,7 +163,7 @@ def train_info(bot: Bot, update: Update, conn):
     train_id = update.callback_query.data.split('info')[1]
     try:
         train = db_utils.get_train(train_id, conn)
-        date_fmt = format_date(train.depart_date, train.check_interval)
+        date_fmt = format_date(train.depart_date, train.check_daily, train.check_interval)
         message = get_train_info_message(train, date_fmt, conn)
         bot.send_message(update.effective_chat.id, message)
     except Exception as e:
