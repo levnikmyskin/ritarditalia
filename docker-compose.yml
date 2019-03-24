@@ -8,6 +8,8 @@ services:
     command: python ./main.py
     volumes:
       - ./:/app
+    depends_on:
+      - db
     restart: always
 
   db:
@@ -31,6 +33,8 @@ services:
       # DON'T SET THESE TWO VARIABLES HERE IN PRODUCTION
       - PMA_USER=$MYSQL_USER
       - PMA_PASSWORD=$MYSQL_PASSWORD
+    depends_on:
+      - db
 
 volumes:
   db_vol:

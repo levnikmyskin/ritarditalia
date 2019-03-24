@@ -19,7 +19,7 @@ def extract_info_from_text(text: str, user: str) -> Train:
         depart_date = match.group("depart_date")
         # We absolutely need to have this info, if we don't stop the parsing and return None
         if all((code, station, depart_date)):
-            station = find_train_original_depart_station(code)[0]
+            station = find_train_original_depart_station(code)[0][1]
             depart_date = datetime.strptime(depart_date, "%H:%M - %d/%m/%Y")
         else:
             return None

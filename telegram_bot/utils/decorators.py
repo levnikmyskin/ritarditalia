@@ -7,6 +7,7 @@ def set_language(func):
         conn = db_utils.connect_db()
         user = db_utils.get_user(conn, chat_id=str(update.effective_user.id))
         language(user.lang)
-        func(bot, update, conn)
+        val = func(bot, update, conn)
         conn.close()
+        return val
     return wrapper

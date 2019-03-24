@@ -1,20 +1,26 @@
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters, ConversationHandler
 from telegram.bot import Bot
 from telegram_bot import stickers
 from telegram.update import Update
 from telegram import ParseMode
+
+from telegram_bot.commands import monitor_by_step, feedback
+from telegram_bot.commands.monitor_by_step import MonitorConversationHandler, on_conversation_timeout
+from telegram_bot.utils.date_helper import parse_date_from_user_message, format_date
+from telegram_bot.utils.notifications import get_train_info_message
+from telegram_bot.utils.structs import TrainStatus
 from telegram_bot.utils.token_parser import get_bot_token
 from telegram_bot.utils.language_utils import set_language
 from telegram_bot.utils import keyboard_utils, decorators, structs, trains_api, db_utils, pdf_extraction
-from telegram_bot.utils.exceptions import WrongDateFormatError, TrainInPastError
-from datetime import datetime
-from telegram_bot.jobs.monitoring import get_status_message, run as monitor, interval_pattern
+from telegram_bot.utils.exceptions import TrainInPastError
+from datetime import timedelta
+from telegram_bot.jobs.monitoring import get_status_message, run as monitor
 from config import BOT_DOMAIN
 import fitz
 import app_strings
 import logging
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG, format="%(asctime)-15s %(user)-8s %(message)s")
+logging.basicConfig(filename='app.log', level=logging.DEBUG, format="%(asctime)-15s %(message)s")
 
 
 def start(bot: Bot, update: Update):
@@ -68,33 +74,15 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
             # TODO ask user which of the stations he wants
             pass
         else:
-            check_interval = None
-            check_daily = False
-            if len(date) >= 30:
-                # What the heck did the user just sent? Lol
-                raise WrongDateFormatError(f"Date sent from the user was too long, wtf?\nReceived: {date}")
-            elif len(date) == 10:
-                # The date format we require has length 10
-                full_date = datetime.strptime(f"{date} {hours}", "%d/%m/%Y %H:%M")
-                full_date_fmt = full_date.strftime("%d/%m/%Y %H:%M")
-            else:
-                full_date = datetime.strptime(f"{hours}", "%H:%M")
-                check_daily = True
-                if date != "sempre":
-                    if not interval_pattern.match(date):
-                        raise WrongDateFormatError(f"Something's not right with date format, received: {date}")
-                    check_interval = date
-                    full_date_fmt = f"{check_interval or ''} {hours}"
-                else:
-                    full_date_fmt = hours
+            full_date, full_date_fmt, check_daily, check_interval = parse_date_from_user_message(date, hours)
 
             logging.debug(f"GOT: {train_code}, {date}, {hours}, {stations}")
             train = structs.Train(
                 id=-1,
                 code=train_code,
-                depart_stat=stations[0],
+                depart_stat=stations[0][1],
                 depart_date=full_date,
-                user=update.message.from_user.id,
+                user=update.effective_chat.id,
                 checked=0,
                 check_daily=check_daily,
                 check_interval=check_interval,
@@ -102,11 +90,7 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
                 seat=seat.upper() if seat is not None else None
             )
             db_utils.insert_train_in_db(train, conn)
-            message = f"{_(app_strings.added_train)}Treno numero: {train.code};\n" \
-                f"Parte da: {db_utils.get_station_from_code(train.depart_stat, conn).name};\n" \
-                f"Tua partenza: {full_date_fmt};\n" \
-                f"Carrozza: {coach or 'Assente'};\n" \
-                f"Posto: {seat or 'Assente'}"
+            message = f"{_(app_strings.added_train)}{get_train_info_message(train, full_date_fmt, conn)}"
             bot.send_sticker(update.message.from_user.id, stickers.drake_approving)
             update.message.reply_text(message)
     except TrainInPastError as e:
@@ -121,35 +105,39 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
 
 @decorators.set_language
 def train_status_list(bot: Bot, update: Update, conn):
-    train_keyboard = keyboard_utils.train_list_keyboard("status", update.effective_user.id, conn)
+    train_keyboard = keyboard_utils.train_list_keyboard("status", update.effective_chat.id, conn)
     update.message.reply_text(_(app_strings.your_trains_status), reply_markup=train_keyboard)
 
 
 @decorators.set_language
 def train_delete_list(bot: Bot, update: Update, conn):
-    train_keyboard = keyboard_utils.train_list_keyboard("delete", update.effective_user.id, conn)
+    train_keyboard = keyboard_utils.train_list_keyboard("delete", update.effective_chat.id, conn)
     update.message.reply_text(_(app_strings.your_trains_deleting), reply_markup=train_keyboard)
 
 
-def train_status(bot: Bot, update: Update):
-    conn = db_utils.connect_db()
+@decorators.set_language
+def train_info_list(bot: Bot, update: Update, conn):
+    train_keyboard = keyboard_utils.train_list_keyboard("info", update.effective_chat.id, conn)
+    update.message.reply_text(_(app_strings.your_trains_info), reply_markup=train_keyboard)
+
+
+@decorators.set_language
+def train_status(bot: Bot, update: Update, conn):
     cb_data = update.callback_query.data
     chat_id = update.effective_user.id
     train_id = update.callback_query.data.split("status")[1]
 
     train = db_utils.get_train(train_id, conn)
     status = trains_api.get_train_status(train.depart_stat, train.code)
-    message, ok = get_status_message(status, train, conn, lang=db_utils.get_user(conn, chat_id=chat_id).lang)
+    message, status = get_status_message(status, train, conn, lang=db_utils.get_user(conn, chat_id=chat_id).lang)
     # We send a message instead of a notification,
     # but we still have to answer the callback query
     update.callback_query.answer()
-    if not ok:
-        logging.error(message)
-        bot.send_sticker(update.callback_query.from_user.id, stickers.blackman_crying)
+    if status == TrainStatus.AVAILABLE:
         bot.send_message(update.callback_query.from_user.id, message)
     else:
+        bot.send_sticker(update.callback_query.from_user.id, stickers.blackman_crying)
         bot.send_message(update.callback_query.from_user.id, message)
-    conn.close()
 
 
 @decorators.set_language
@@ -166,6 +154,22 @@ def delete_train(bot: Bot, update: Update, conn):
         logging.error(e)
         bot.send_sticker(chat_id, stickers.blackman_crying)
         bot.send_message(chat_id, _(app_strings.error_deleting_train))
+    finally:
+        update.callback_query.answer()
+
+
+@decorators.set_language
+def train_info(bot: Bot, update: Update, conn):
+    train_id = update.callback_query.data.split('info')[1]
+    try:
+        train = db_utils.get_train(train_id, conn)
+        date_fmt = format_date(train.depart_date, train.check_interval)
+        message = get_train_info_message(train, date_fmt, conn)
+        bot.send_message(update.effective_chat.id, message)
+    except Exception as e:
+        logging.error(e)
+        bot.send_sticker(update.effective_chat.id, stickers.toninelli)
+        bot.send_message(update.effective_chat.id, _(app_strings.generic_error))
     finally:
         update.callback_query.answer()
 
@@ -197,11 +201,7 @@ def train_from_pdf(bot: Bot, update: Update, conn):
         message = f"{_(app_strings.added_train)}"
         for train in trains:
             db_utils.insert_train_in_db(train, conn, False)
-            message += f"Treno numero: {train.code};\n" \
-                f"Parte da: {db_utils.get_station_from_code(train.depart_stat, conn).name};\n" \
-                f"Tua partenza: {train.depart_date.strftime('%d/%m/%Y %H:%M')}\n" \
-                f"Carrozza: {train.coach or 'Assente'}\n" \
-                f"Posto: {train.seat or 'Assente'}\n"
+            message += get_train_info_message(train, format_date(train.depart_date, ""), conn)
         conn.commit()
         bot.send_sticker(update.message.from_user.id, stickers.drake_approving)
         update.message.reply_text(message)
@@ -220,6 +220,14 @@ def main():
     updater = Updater(token=token)
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('monello', change_lang_monello))
+    updater.dispatcher.add_handler(MonitorConversationHandler(
+        timeout_callback=on_conversation_timeout,
+        entry_points=monitor_by_step.entry_points,
+        states=monitor_by_step.states,
+        fallbacks=monitor_by_step.fallbacks,
+        conversation_timeout=timedelta(minutes=30)
+    )
+    )
     updater.dispatcher.add_handler(CommandHandler('monitora', add_train_to_monitor))
     updater.dispatcher.add_handler(CommandHandler('status', train_status_list))
     updater.dispatcher.add_handler(CommandHandler('delete', train_delete_list))
@@ -229,13 +237,22 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_status, pattern=r'status \d+'))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=delete_train, pattern=r'delete \d+'))
     updater.dispatcher.add_handler(MessageHandler(filters=Filters.document, callback=train_from_pdf))
+    updater.dispatcher.add_handler(ConversationHandler(
+        entry_points=feedback.entry_point,
+        states=feedback.states,
+        fallbacks=feedback.fallbacks,
+        conversation_timeout=timedelta(minutes=30)
+    ))
+    updater.dispatcher.add_handler(CommandHandler("info", train_info_list))
+    updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_info, pattern=r'info \d+'))
     updater.job_queue.run_repeating(monitor, interval=2400, first=0)
-    updater.start_webhook(
-        listen='0.0.0.0',
-        port=5000,
-        url_path=token,
-        webhook_url=f'https://{BOT_DOMAIN}/{token}'
-    )
+    updater.start_polling()
+    # updater.start_webhook(
+    #     listen='0.0.0.0',
+    #     port=5000,
+    #     url_path=token,
+    #     webhook_url=f'https://{BOT_DOMAIN}/{token}'
+    # )
     updater.idle()
 
 
