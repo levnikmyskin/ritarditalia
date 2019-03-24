@@ -138,7 +138,7 @@ def update_train_checked(pk: int, conn: MySQLdb.Connection):
 
 
 def connect_db() -> MySQLdb.Connection:
-    return MySQLdb.Connect(passwd=DB_PASSWORD, user=DB_USER, host=DB_HOST, db=DB_NAME)
+    return MySQLdb.Connect(passwd=DB_PASSWORD, user=DB_USER, host=DB_HOST, db=DB_NAME, use_unicode=True, charset="utf8mb4")
 
 
 def get_trains_to_monitor(conn: MySQLdb.Connection) -> [Train]:
@@ -164,3 +164,11 @@ def search_stations(station_name: str) -> [Station]:
     cursor.close()
     conn.close()
     return stations
+
+
+def store_feedback(feedback: str, chat_id: str, conn: MySQLdb.Connection):
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO feedbacks(user, feedback) VALUES(%s, %s)",
+                   (chat_id, feedback))
+    conn.commit()
+    cursor.close()

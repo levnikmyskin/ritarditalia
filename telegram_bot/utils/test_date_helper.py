@@ -5,13 +5,13 @@ from telegram_bot.utils.date_helper import *
 class TestDateHelper(unittest.TestCase):
 
     def test_format_interval(self):
-        interval1 = ["lun", "mar", "gio", "sab", "dom"]
-        interval2 = ["lun", "mar", "mer", "ven", "dom"]
-        interval3 = ["dom", "sab", "ven", "lun", "mer"]
-        interval4 = ["mer", "mar", "lun", "sab", "dom"]
-        interval5 = ["lun"]
-        interval6 = ["lun", "mar", "mer"]
-        interval7 = ["lun", "mar", "mer", "gio", "ven"]
+        interval1 = "lun,mar,gio,sab,dom"
+        interval2 = "lun,mar,mer,ven,dom"
+        interval3 = "dom,sab,ven,lun,mer"
+        interval4 = "mer,mar,lun,sab,dom"
+        interval5 = "lun"
+        interval6 = "lun,mar,mer"
+        interval7 = "lun,mar,mer,gio,ven"
         self.assertEqual(format_interval(interval1), "lun,mar,gio,sab,dom")
         self.assertEqual(format_interval(interval2), "lun-mer,ven,dom")
         self.assertEqual(format_interval(interval3), "lun,mer,ven-dom")

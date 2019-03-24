@@ -9,6 +9,7 @@ from telegram_bot.jobs.monitoring import interval_regex, interval_days, days_map
 from telegram_bot.utils import trains_api, db_utils, structs, keyboard_utils
 from telegram_bot.utils import decorators
 from telegram_bot.utils.date_helper import parse_date_from_user_message, format_date, format_interval
+from telegram_bot.utils.exceptions import TrainInPastError, WrongDateFormatError
 from telegram_bot.utils.notifications import get_train_info_message
 from telegram_bot.utils.structs import MonitorConversationStates
 import app_strings
@@ -55,12 +56,10 @@ def register_train_code(bot: Bot, update: Update, conn):
             return MonitorConversationStates.SEND_STATION
 
         return __prepare_for_sending_date(update, stations[0][1], train_code, conn)
-    except ValueError:
-        update.message.reply_text("No")
-        return MonitorConversationStates.SEND_TRAIN_CODE
     except Exception as e:
         logging.error(e)
-        update.message.reply_text("rca merda")
+        bot.send_sticker(update.effective_chat.id, sticker=stickers.blackman_crying)
+        update.message.reply_text(f"{_(app_strings.error_adding_train)}\n{_(app_strings.monitor_step_entrypoint)}")
         return MonitorConversationStates.SEND_TRAIN_CODE
 
 
@@ -83,7 +82,7 @@ def __prepare_for_sending_date(update, station_code, train_code, conn):
     days_keyboard = keyboard_utils.interval_keyboard(interval_days)
     update.message.reply_text(f"Treno: {train_code}\n"
                               f"Parte da: {station_code.name}"
-                              f"\n\nInviami la data o un intervallo", reply_markup=days_keyboard)
+                              f"\n\n{_(app_strings.monitor_step_date)}", reply_markup=days_keyboard)
     data[update.effective_chat.id] = TrainDict({"code": train_code, "depart_stat": station_code.code,
                                                 "human_stat": station_code.name})
     return MonitorConversationStates.SEND_DATE
@@ -139,9 +138,14 @@ def register_hours(bot: Bot, update: Update, conn):
                                   f"\n\nSe vuoi, puoi aggiungere carrozza e posto (es. 4 11D), altrimenti "
                                   f"usa /ok per confermare, /stop per cancellare")
         return MonitorConversationStates.SEND_COACH_SEAT
+    except WrongDateFormatError as e:
+        logging.error(e)
+        bot.send_sticker(update.effective_chat.id, stickers.toninelli)
+        update.message.reply_text(_(app_strings.wrong_date))
     except Exception as e:
         logging.error(e)
-        update.message.reply_text(_(app_strings.wrong_date))
+        bot.send_sticker(update.effective_chat.id, stickers.tom_not_understanding)
+        update.message.reply_text(_(app_strings.generic_error))
         return MonitorConversationStates.SEND_HOURS
 
 
@@ -175,6 +179,10 @@ def confirm_monitoring(bot: Bot, update: Update, conn):
         bot.send_sticker(update.effective_chat.id, stickers.drake_approving)
         date_fmt = format_date(train.depart_date, train.check_interval)
         update.message.reply_text(f"{_(app_strings.added_train)}{get_train_info_message(train_data, date_fmt, conn)}")
+    except TrainInPastError as e:
+        logging.error(e)
+        bot.send_sticker(update.message.from_user.id, stickers.tom_puzzled)
+        update.message.reply_text(_(app_strings.train_in_past_error))
     except Exception as e:
         logging.error(e)
         bot.send_sticker(update.message.from_user.id, stickers.blackman_crying)
@@ -187,7 +195,7 @@ def confirm_monitoring(bot: Bot, update: Update, conn):
 @decorators.set_language
 def stop_monitoring_conversation(bot: Bot, update: Update, conn):
     del data[update.effective_chat.id]
-    update.message.reply_text("Stoppe")
+    update.message.reply_text(_(app_strings.stop_conversation))
     return ConversationHandler.END
 
 
@@ -210,5 +218,10 @@ states = {
                                                 CommandHandler("ok", confirm_monitoring)),
     MonitorConversationStates.CONFIRM_MONITORING: (CommandHandler("ok", confirm_monitoring),)
 }
-fallbacks = [CommandHandler("stop", stop_monitoring_conversation),
-             MessageHandler(Filters.all, callback=lambda b, u: u.message.reply_text("boh"))]
+fallbacks = [
+    CommandHandler("stop", stop_monitoring_conversation),
+    MessageHandler(
+        Filters.all,
+        callback=lambda b, u: u.message.reply_text(_(app_strings.conversation_fallback))
+    )
+]

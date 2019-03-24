@@ -95,17 +95,27 @@ def get_status_message(status: dict, train: Train, conn: MySQLdb.Connection, lan
     elif status.get('oraUltimoRilevamento') is not None:
         delay = status['ritardo']
         if delay > 0:
-            message = _(app_strings.train_delayed.format(delay))
+            message = _(app_strings.train_delayed)
         else:
             message = _(app_strings.train_on_time)
 
         depart_station = get_station_from_code(train.depart_stat, conn)
         date = timestamp_to_italy_datetime(status['oraUltimoRilevamento']).strftime("%d/%m/%Y %H:%M")
+        actual_last_stop = filter(lambda s: s['stazione'] == status['stazioneUltimoRilevamento'], status["fermate"])
+        last_stop_status = f"{status['stazioneUltimoRilevamento']}"
+        try:
+            actual_last_stop = next(actual_last_stop)
+            if actual_last_stop['partenzaReale'] is not None:
+                last_stop_status = f"{_(app_strings.departed_from)}{status['stazioneUltimoRilevamento']}"
+            elif actual_last_stop['arrivoReale'] is not None:
+                last_stop_status = f"{_(app_strings.arrived_to)}{status['stazioneUltimoRilevamento']}"
+        except StopIteration:
+            pass
         return f"{message}\nTreno numero: {train.code};\n" \
                    f"Partito da: {depart_station.name};\n" \
                    f"Ritardo/Anticipo: {delay} minuti;\n" \
                    f"Ultimo rilevamento: {date};\n" \
-                   f"Ultima stazione rilevata: {status['stazioneUltimoRilevamento']}", TrainStatus.AVAILABLE
+                   f"Ultima stazione: {last_stop_status}", TrainStatus.AVAILABLE
     else:
         return _(app_strings.train_status_not_available), TrainStatus.NOT_AVAILABLE
 

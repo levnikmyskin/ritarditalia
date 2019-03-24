@@ -47,13 +47,15 @@ def parse_date_from_user_message(date: str, hours: str) -> (datetime, str, bool,
     return full_date, full_date_fmt, check_daily, check_interval
 
 
-def format_date(date: datetime, check_interval: str) -> str:
+def format_date(date: datetime, check_interval: str, with_interval_formatted=False) -> str:
     """
     Format the train date for human readers. If we get a check_interval, then we will
     return the check_interval string itself plus the hours taken from date, otherwise we
     do a simple date formatting
     """
     if check_interval:
+        if with_interval_formatted:
+            return f"{format_interval(check_interval)} {date.hour}:{date.minute}"
         return f"{check_interval} {date.hour}:{date.minute}"
     return date.strftime("%d/%m/%Y %H:%M")
 

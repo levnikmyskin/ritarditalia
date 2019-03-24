@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-19 21:02+0100\n"
+"POT-Creation-Date: 2019-03-24 15:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,8 +36,9 @@ msgid ""
 "Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
 "`/`. Te ne mostro alcuni:\n"
 "\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm OPPURE "
-"lun-mer,gio,ven}, puoi usarlo \tper monitorare un treno.Es. scrivi `/"
-"monitora 12855 sempre 3:06`.\n"
+"lun-mer,gio,ven}, puoi usarlo \tper monitorare un treno. Puoi inviare /"
+"monitora da solo per avere una procedura guidata.\n"
+"Es. scrivi `/monitora 12855 sempre 3:06`.\n"
 "\tAltro es. /monitora 511 09/10/2019 3:06;\n"
 "\tO ancora /monitora 511 lun-mer,ven 16:20;\n"
 "\t2. Invia un biglietto in pdf al bot per aggiungerlo!\t3. /english change "
@@ -51,7 +52,8 @@ msgstr ""
 "Er bot contiene na cifra de comandi (manco troppi, ma comunque fa figo "
 "dillo). Se scrivi `/` li vedi, ma intanto beccate questi zì:\n"
 "\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm}, co "
-"questo tieni sott'occhio er treno. Es. scrivi `/monitora 12855 sempre "
+"questo tieni sott'occhio er treno. Invia /monitora da solo per avere una procedura guidata.\n"
+"Es. scrivi `/monitora 12855 sempre "
 "3:06`.\n"
 "\tAltro es. /monitora 511 09/10/2019 3:06. Oh calcola che 3 e 06 è l'ora in "
 "cui devi partì te eh;\n"
@@ -65,19 +67,19 @@ msgstr ""
 "levnikmyskin/ritarditalia"
 
 #: app_strings.py:20 app_strings.py:24 app_strings.py:25 app_strings.py:26
-#: app_strings.py:27
+#: app_strings.py:27 app_strings.py:28
 msgid "Lingua cambiata in italiano :D"
 msgstr "Eddaje!"
 
 #: app_strings.py:22 app_strings.py:26 app_strings.py:27 app_strings.py:28
-#: app_strings.py:29
+#: app_strings.py:29 app_strings.py:30
 msgid "Aggiunto il treno, informazioni:\n"
 msgstr ""
 "E sbim, aggiunto. Qualche dettaglio di cui non te frega un cazzo ma potresti "
 "almeno fa finta:\n"
 
 #: app_strings.py:24 app_strings.py:28 app_strings.py:29 app_strings.py:30
-#: app_strings.py:31
+#: app_strings.py:31 app_strings.py:32
 msgid ""
 "C'è stato un errore e non è stato possibile aggiungere il treno, controlla "
 "che il comando sia scritto corettamente"
@@ -86,19 +88,19 @@ msgstr ""
 "du comandi devi scrive, manco quello"
 
 #: app_strings.py:26 app_strings.py:30 app_strings.py:31 app_strings.py:32
-#: app_strings.py:33
+#: app_strings.py:33 app_strings.py:34
 msgid "C'è stato un errore nell'eliminare il treno"
 msgstr ""
 "Eh niente, er treno non s'è eliminato. Quando c'è da sopprime sopprimono "
 "sempre, quando me tocca eliminà a me mai che funziona oh"
 
 #: app_strings.py:28 app_strings.py:32 app_strings.py:33 app_strings.py:34
-#: app_strings.py:35
+#: app_strings.py:35 app_strings.py:36 app_strings.py:37
 msgid "Non è stato possibile ottenere lo status del tuo treno :("
 msgstr "No zì calcola lo status del treno non c'è. Se famo na briscolata?"
 
 #: app_strings.py:30 app_strings.py:34 app_strings.py:35 app_strings.py:36
-#: app_strings.py:37
+#: app_strings.py:37 app_strings.py:38 app_strings.py:39
 msgid "Treno"
 msgstr ""
 
@@ -107,17 +109,17 @@ msgid "I tuoi treni"
 msgstr "Li treni tua"
 
 #: app_strings.py:31 app_strings.py:35 app_strings.py:36 app_strings.py:37
-#: app_strings.py:38
+#: app_strings.py:38 app_strings.py:39 app_strings.py:40
 msgid "Status treno"
 msgstr "A che punto sta er treno"
 
 #: app_strings.py:32 app_strings.py:36 app_strings.py:37 app_strings.py:38
-#: app_strings.py:39
+#: app_strings.py:39 app_strings.py:40 app_strings.py:41
 msgid "Elimina treno"
 msgstr "Sbraga treno"
 
 #: app_strings.py:32 app_strings.py:33 app_strings.py:37 app_strings.py:38
-#: app_strings.py:39 app_strings.py:40
+#: app_strings.py:39 app_strings.py:40 app_strings.py:42 app_strings.py:43
 msgid ""
 "Lo stato del treno non sembra essere disponibile, forse deve ancora partire?"
 msgstr ""
@@ -125,7 +127,7 @@ msgstr ""
 "che ansia c'hai cristo santo"
 
 #: app_strings.py:33 app_strings.py:34 app_strings.py:38 app_strings.py:39
-#: app_strings.py:40 app_strings.py:41
+#: app_strings.py:40 app_strings.py:41 app_strings.py:43 app_strings.py:44
 msgid "Il treno è stato eliminato!"
 msgstr "Sbragato er treno, sbimme!"
 
@@ -134,7 +136,7 @@ msgid "Il treno è in ritardo di {}!"
 msgstr "Mannaggia la troia, il treno è in ritardo di {}"
 
 #: app_strings.py:36 app_strings.py:37 app_strings.py:41 app_strings.py:42
-#: app_strings.py:43 app_strings.py:44
+#: app_strings.py:43 app_strings.py:44 app_strings.py:46 app_strings.py:47
 msgid "Il treno è in orario!"
 msgstr "Oh zì er treno è in orario, potrebbe esse pure in anticipo calcola"
 
@@ -143,7 +145,7 @@ msgstr "Oh zì er treno è in orario, potrebbe esse pure in anticipo calcola"
 msgid "Il treno è in ritardo di {} minuti!"
 msgstr ""
 
-#: app_strings.py:45 app_strings.py:46
+#: app_strings.py:48 app_strings.py:49
 msgid ""
 "Funzionamento:\n"
 "\n"
@@ -152,6 +154,7 @@ msgid ""
 "\n"
 "Questo comando ti permette di aggiungere un treno e monitorare il suo "
 "ritardo fino a 4 ore prima della tua partenza.\n"
+"Se usato da solo (senza aggiungere nulla) offre una procedura guidata.\n"
 "Al momento, non è possibile cercare un treno, dovrai quindi averne il "
 "codice. Puoi usare il trattino `-` per specificare un intervallo di giorni, "
 "la virgola `,` per specificare i giorni singoli (es. mar-gio,sab,dom) "
@@ -188,9 +191,11 @@ msgstr ""
 "\n"
 "Co sto comando aggiungi un treno così che er bot t'avverte prima se sta in "
 "ritardo (er treno, no il bot). Alla fine a smadonnà smadonnerai comunque, ma "
-"per lo meno cominci a farlo 4 ore prima. Puoi usare il trattino `-` per "
-"specificare un intervallo di giorni, la virgola `,` per specificare i giorni "
-"singoli (es. mar-gio,sab,dom) Carrozza e posto so opzionali!\n"
+"per lo meno cominci a farlo 4 ore prima. Se te pesa er culo de invià tutti i "
+"parametri, usa /monitora da solo per una procedura guidata.\n"
+"Puoi usare il trattino `-` per specificare un intervallo di giorni, la "
+"virgola `,` per specificare i giorni singoli (es. mar-gio,sab,dom) Carrozza "
+"e posto so opzionali!\n"
 "Poi comunque se te pesa er culo puoi inviare il biglietto in PDF e i treni "
 "verranno aggiunti da soli.\n"
 "Per partire verso questo viaggio incredibile, scrivi na cosa del genere:\n"
@@ -216,6 +221,7 @@ msgstr ""
 "venerdì e sabato alle 16:57, carrozza 4, posto 11D"
 
 #: app_strings.py:52 app_strings.py:53 app_strings.py:65 app_strings.py:66
+#: app_strings.py:68 app_strings.py:69 app_strings.py:70
 msgid ""
 "Funzionamento:\n"
 "\n"
@@ -235,6 +241,7 @@ msgstr ""
 "partito e me sa che a quel punto non è lui che c'ha ritardo"
 
 #: app_strings.py:57 app_strings.py:58 app_strings.py:70 app_strings.py:71
+#: app_strings.py:73 app_strings.py:74 app_strings.py:75
 msgid ""
 "Funzionamento:\n"
 "\n"
@@ -252,6 +259,7 @@ msgstr ""
 "eliminarlo dopo"
 
 #: app_strings.py:61 app_strings.py:62 app_strings.py:74 app_strings.py:75
+#: app_strings.py:77 app_strings.py:78 app_strings.py:79
 msgid ""
 "Funzionamento:\n"
 "\n"
@@ -261,6 +269,7 @@ msgid ""
 msgstr ""
 
 #: app_strings.py:64 app_strings.py:65 app_strings.py:77 app_strings.py:78
+#: app_strings.py:80 app_strings.py:81 app_strings.py:82
 msgid ""
 "Funzionamento:\n"
 "\n"
@@ -271,36 +280,143 @@ msgid ""
 msgstr ""
 
 #: app_strings.py:67 app_strings.py:68 app_strings.py:80 app_strings.py:81
+#: app_strings.py:83 app_strings.py:84 app_strings.py:85
 msgid "The english language is not available yet :("
 msgstr ""
 
-#: app_strings.py:70 app_strings.py:82 app_strings.py:83
+#: app_strings.py:70 app_strings.py:82 app_strings.py:83 app_strings.py:85
+#: app_strings.py:86 app_strings.py:87
 msgid ""
 "C'è stato un errore e non è stato possibile aggiungere il treno dal pdf :("
 msgstr "No zì che m'hai mandato? Non so riuscito a aggiunge il treno :("
 
-#: app_strings.py:71 app_strings.py:83 app_strings.py:84
+#: app_strings.py:71 app_strings.py:83 app_strings.py:84 app_strings.py:86
+#: app_strings.py:87 app_strings.py:88
 msgid "Il treno è nel passato, non è possibile aggiungerlo!"
 msgstr ""
 "Oh ma il treno è nel passato, la macchina del tempo ancora non ce l'avemo "
 "(quella pe i salti temporali non arriva così indietro)"
 
-#: app_strings.py:86
+#: app_strings.py:86 app_strings.py:88 app_strings.py:89 app_strings.py:90
 msgid ""
 "Sembra esserci stato un errore da parte di Trenitalia : / riprova più tardi"
 msgstr ""
 "Eh calcola non se sa che è successo dalle parti di Trenitalia, qualcosa non "
 "è andato. Riprova più tardi"
 
-#: app_strings.py:87
+#: app_strings.py:87 app_strings.py:89 app_strings.py:90 app_strings.py:91
 msgid ""
 "Specifica un comando per cui visualizzare l'aiuto. Ad esempio `/help "
 "monitora`"
 msgstr ""
 
-#: app_strings.py:88
+#: app_strings.py:88 app_strings.py:90 app_strings.py:91 app_strings.py:92
 msgid ""
 "Lo stato del tuo treno non è disponibile. Probabilmente c'è un errore nei "
 "servizi Trenitalia :("
 msgstr ""
-"E niente, lo stato del treno non è disponibile. Me sa che pure oggi i servizi Trenitalia funzionano domani"
+"E niente, lo stato del treno non è disponibile. Me sa che pure oggi i "
+"servizi Trenitalia funzionano domani"
+
+#: app_strings.py:34 app_strings.py:35
+msgid "C'è stato un errore :("
+msgstr "Madonna non so che cazzo è successo, ma è morto tutto :("
+
+#: app_strings.py:41 app_strings.py:42
+msgid "Informazioni treno"
+msgstr ""
+
+#: app_strings.py:45 app_strings.py:46
+msgid "Il treno è in ritardo!"
+msgstr "Oh indovina? Il treno è in ritardo"
+
+#: app_strings.py:92 app_strings.py:93 app_strings.py:94
+msgid "Ok, inviami il codice del treno oppure usa /stop per terminare"
+msgstr "Vai, mandame il codice treno oppure usa /stop per fermà tutto"
+
+#: app_strings.py:93 app_strings.py:94 app_strings.py:95
+msgid "Ci sono più treni per questo codice, indicami la stazione di partenza"
+msgstr ""
+"LOL calcola ce stanno più treni legati a sto codice (che monelli). Indicami "
+"la stazione di partenza"
+
+#: app_strings.py:94 app_strings.py:95 app_strings.py:96
+msgid "Ok, ora inviami l'orario"
+msgstr "Vai, inviami l'orario che sto carichissimo"
+
+#: app_strings.py:95 app_strings.py:96 app_strings.py:97
+msgid ""
+"Inviami una data (es. 23/03/2019) o un intervallo di giorni.\n"
+"Usa /ok per confermare l'intervallo, /stop per terminare la conversazione"
+msgstr ""
+"Le cose so due: o me mandi una data (23/03/2019) o clicchi sui pulsantini, "
+"vedi un po' te.\n"
+"Usa /ok per confermare l'intervallo, /stop per terminare la conversazione"
+
+#: app_strings.py:97 app_strings.py:98 app_strings.py:99
+msgid "Il formato della data inviata non è corretto, riprova"
+msgstr "A zì ma che data hai scritto? Dai riprova"
+
+#: app_strings.py:98 app_strings.py:99 app_strings.py:100
+msgid "Usa /stop per terminare"
+msgstr ""
+
+#: app_strings.py:99 app_strings.py:100 app_strings.py:101
+msgid "lun"
+msgstr ""
+
+#: app_strings.py:100 app_strings.py:101 app_strings.py:102
+msgid "mar"
+msgstr ""
+
+#: app_strings.py:101 app_strings.py:102 app_strings.py:103
+msgid "mer"
+msgstr ""
+
+#: app_strings.py:102 app_strings.py:103 app_strings.py:104
+msgid "gio"
+msgstr ""
+
+#: app_strings.py:103 app_strings.py:104 app_strings.py:105
+msgid "ven"
+msgstr ""
+
+#: app_strings.py:104 app_strings.py:105 app_strings.py:106
+msgid "sab"
+msgstr ""
+
+#: app_strings.py:105 app_strings.py:106 app_strings.py:107
+msgid "dom"
+msgstr ""
+
+#: app_strings.py:107 app_strings.py:108 app_strings.py:109
+msgid "partito da "
+msgstr ""
+
+#: app_strings.py:108 app_strings.py:109 app_strings.py:110
+msgid "arrivato a "
+msgstr ""
+
+#: app_strings.py:109 app_strings.py:110 app_strings.py:111
+msgid "Ok, dimmi cosa pensi del bot o se hai consigli a riguardo :)"
+msgstr "Vai, dimme tutto. Oh se me scrivi le parolacce chiamo la polizia"
+
+#: app_strings.py:110 app_strings.py:111 app_strings.py:112
+msgid "Grazie per il tuo feedback! :)"
+msgstr ""
+"Daje grande! (tranne nel caso in cui m'hai mandato parolacce, in quel caso "
+"te reporto subito)"
+
+#: app_strings.py:111 app_strings.py:112 app_strings.py:113
+msgid "Ok, mi fermo :D"
+msgstr "M'aresto"
+
+#: app_strings.py:112 app_strings.py:113 app_strings.py:114
+msgid ""
+"Non ho capito :/\n"
+"Usa /stop per terminare la conversazione"
+msgstr ""
+"Non c'ho capito un cazzo calcola :/\n"
+"Usa /stop per terminare la conversazione"
+
+

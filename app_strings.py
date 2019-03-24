@@ -12,7 +12,8 @@ start_message = N_("Ciao! Questo bot è in grado di tenerti informato/a sullo st
 command_message = N_("Questo bot contiene diversi comandi possibili, puoi visualizzarli scrivendo "
                      "`/`. Te ne mostro alcuni:\n"
                      "\t1. /monitora {codice_treno} {sempre hh:mm OPPURE dd/mm/yyyy hh:mm OPPURE lun-mer,gio,ven}, "
-                     "puoi usarlo \tper monitorare un treno.Es. scrivi `/monitora 12855 sempre 3:06`.\n"
+                     "puoi usarlo \tper monitorare un treno. Puoi inviare /monitora da solo per avere una procedura "
+                     "guidata.\nEs. scrivi `/monitora 12855 sempre 3:06`.\n"
                      "\tAltro es. /monitora 511 09/10/2019 3:06;\n"
                      "\tO ancora /monitora 511 lun-mer,ven 16:20;\n"
                      "\t2. Invia un biglietto in pdf al bot per aggiungerlo!"
@@ -38,15 +39,17 @@ error_status_train = N_("Non è stato possibile ottenere lo status del tuo treno
 train = N_("Treno")
 your_trains_status = N_("Status treno")
 your_trains_deleting = N_("Elimina treno")
+your_trains_info = N_("Informazioni treno")
 train_status_not_available = N_("Lo stato del treno non sembra essere disponibile, forse deve ancora partire?")
 train_deleted = N_("Il treno è stato eliminato!")
 
-train_delayed = N_("Il treno è in ritardo di {} minuti!")
+train_delayed = N_("Il treno è in ritardo!")
 train_on_time = N_("Il treno è in orario!")
 
 monitor_help = N_("Funzionamento:\n\n\t\t`/monitora {codice_treno} {data|sempre|intervallo} {ora} (carrozza) (posto)`\n\n"
                   "Questo comando ti permette di aggiungere un treno e monitorare il suo ritardo fino a 4 ore prima "
-                  "della tua partenza.\nAl momento, non è possibile cercare un treno, dovrai quindi averne il codice. "
+                  "della tua partenza.\nSe usato da solo (senza aggiungere nulla) offre una procedura guidata.\n"
+                  "Al momento, non è possibile cercare un treno, dovrai quindi averne il codice. "
                   "Puoi usare il trattino `-` per specificare un intervallo di giorni, la virgola `,` per specificare i "
                   "giorni singoli (es. mar-gio,sab,dom) "
                   "Carrozza e posto sono opzionali!\n"
@@ -91,6 +94,8 @@ monitoring_api_error = N_("Lo stato del tuo treno non è disponibile. Probabilme
 monitor_step_entrypoint = N_("Ok, inviami il codice del treno oppure usa /stop per terminare")
 multiple_stations_found = N_("Ci sono più treni per questo codice, indicami la stazione di partenza")
 monitor_step_hours = N_("Ok, ora inviami l'orario")
+monitor_step_date = N_("Inviami una data (es. 23/03/2019) o un intervallo di giorni.\n"
+                       "Usa /ok per confermare l'intervallo, /stop per terminare la conversazione")
 wrong_date = N_("Il formato della data inviata non è corretto, riprova")
 use_stop_to_end = N_("Usa /stop per terminare")
 mon = N_("lun")
@@ -101,3 +106,9 @@ fri = N_("ven")
 sat = N_("sab")
 sun = N_("dom")
 
+departed_from = N_("partito da ")
+arrived_to = N_("arrivato a ")
+send_feedback = N_("Ok, dimmi cosa pensi del bot o se hai consigli a riguardo :)")
+thanks_feedback = N_("Grazie per il tuo feedback! :)")
+stop_conversation = N_("Ok, mi fermo :D")
+conversation_fallback = N_("Non ho capito :/\nUsa /stop per terminare la conversazione")

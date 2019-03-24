@@ -1,10 +1,10 @@
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters, ConversationHandler
 from telegram.bot import Bot
 from telegram_bot import stickers
 from telegram.update import Update
 from telegram import ParseMode
 
-from telegram_bot.commands import monitor_by_step
+from telegram_bot.commands import monitor_by_step, feedback
 from telegram_bot.commands.monitor_by_step import MonitorConversationHandler, on_conversation_timeout
 from telegram_bot.utils.date_helper import parse_date_from_user_message, format_date
 from telegram_bot.utils.notifications import get_train_info_message
@@ -105,18 +105,24 @@ def add_train_to_monitor(bot: Bot, update: Update, conn):
 
 @decorators.set_language
 def train_status_list(bot: Bot, update: Update, conn):
-    train_keyboard = keyboard_utils.train_list_keyboard("status", update.effective_user.id, conn)
+    train_keyboard = keyboard_utils.train_list_keyboard("status", update.effective_chat.id, conn)
     update.message.reply_text(_(app_strings.your_trains_status), reply_markup=train_keyboard)
 
 
 @decorators.set_language
 def train_delete_list(bot: Bot, update: Update, conn):
-    train_keyboard = keyboard_utils.train_list_keyboard("delete", update.effective_user.id, conn)
+    train_keyboard = keyboard_utils.train_list_keyboard("delete", update.effective_chat.id, conn)
     update.message.reply_text(_(app_strings.your_trains_deleting), reply_markup=train_keyboard)
 
 
-def train_status(bot: Bot, update: Update):
-    conn = db_utils.connect_db()
+@decorators.set_language
+def train_info_list(bot: Bot, update: Update, conn):
+    train_keyboard = keyboard_utils.train_list_keyboard("info", update.effective_chat.id, conn)
+    update.message.reply_text(_(app_strings.your_trains_info), reply_markup=train_keyboard)
+
+
+@decorators.set_language
+def train_status(bot: Bot, update: Update, conn):
     cb_data = update.callback_query.data
     chat_id = update.effective_user.id
     train_id = update.callback_query.data.split("status")[1]
@@ -132,7 +138,6 @@ def train_status(bot: Bot, update: Update):
     else:
         bot.send_sticker(update.callback_query.from_user.id, stickers.blackman_crying)
         bot.send_message(update.callback_query.from_user.id, message)
-    conn.close()
 
 
 @decorators.set_language
@@ -149,6 +154,22 @@ def delete_train(bot: Bot, update: Update, conn):
         logging.error(e)
         bot.send_sticker(chat_id, stickers.blackman_crying)
         bot.send_message(chat_id, _(app_strings.error_deleting_train))
+    finally:
+        update.callback_query.answer()
+
+
+@decorators.set_language
+def train_info(bot: Bot, update: Update, conn):
+    train_id = update.callback_query.data.split('info')[1]
+    try:
+        train = db_utils.get_train(train_id, conn)
+        date_fmt = format_date(train.depart_date, train.check_interval)
+        message = get_train_info_message(train, date_fmt, conn)
+        bot.send_message(update.effective_chat.id, message)
+    except Exception as e:
+        logging.error(e)
+        bot.send_sticker(update.effective_chat.id, stickers.toninelli)
+        bot.send_message(update.effective_chat.id, _(app_strings.generic_error))
     finally:
         update.callback_query.answer()
 
@@ -216,6 +237,14 @@ def main():
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_status, pattern=r'status \d+'))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=delete_train, pattern=r'delete \d+'))
     updater.dispatcher.add_handler(MessageHandler(filters=Filters.document, callback=train_from_pdf))
+    updater.dispatcher.add_handler(ConversationHandler(
+        entry_points=feedback.entry_point,
+        states=feedback.states,
+        fallbacks=feedback.fallbacks,
+        conversation_timeout=timedelta(minutes=30)
+    ))
+    updater.dispatcher.add_handler(CommandHandler("info", train_info_list))
+    updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_info, pattern=r'info \d+'))
     updater.job_queue.run_repeating(monitor, interval=2400, first=0)
     updater.start_polling()
     # updater.start_webhook(
