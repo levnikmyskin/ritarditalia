@@ -177,7 +177,7 @@ def confirm_monitoring(bot: Bot, update: Update, conn):
         )
         db_utils.insert_train_in_db(train, conn)
         bot.send_sticker(update.effective_chat.id, stickers.drake_approving)
-        date_fmt = format_date(train.depart_date, train.check_interval)
+        date_fmt = format_date(train.depart_date, train.check_daily, train.check_interval)
         update.message.reply_text(f"{_(app_strings.added_train)}{get_train_info_message(train_data, date_fmt, conn)}")
     except TrainInPastError as e:
         logging.error(e)
