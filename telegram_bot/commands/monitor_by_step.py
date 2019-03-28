@@ -194,13 +194,23 @@ def confirm_monitoring(bot: Bot, update: Update, conn):
 
 @decorators.set_language
 def stop_monitoring_conversation(bot: Bot, update: Update, conn):
-    del data[update.effective_chat.id]
-    update.message.reply_text(_(app_strings.stop_conversation))
-    return ConversationHandler.END
+    try:
+        del data[update.effective_chat.id]
+        update.message.reply_text(_(app_strings.stop_conversation))
+    except Exception as e:
+        logging.error(e)
+    finally:
+        return ConversationHandler.END
 
 
 def on_conversation_timeout(bot: Bot, job, user):
-    del data[user]
+    try:
+        del data[user]
+        update.message.reply_text(_(app_strings.stop_conversation))
+    except Exception as e:
+        logging.error(e)
+    finally:
+        return ConversationHandler.END
 
 
 data = dict()
