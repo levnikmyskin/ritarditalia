@@ -201,11 +201,7 @@ def train_from_pdf(bot: Bot, update: Update, conn):
         message = f"{_(app_strings.added_train)}"
         for train in trains:
             db_utils.insert_train_in_db(train, conn, False)
-            message += get_train_info_message(
-                train,
-                format_date(train.depart_date, train.check_daily, train.check_interval, False),
-                conn
-            )
+            message += get_train_info_message(train, format_date(train.depart_date, check_daily=False, check_interval=""), conn)
         conn.commit()
         bot.send_sticker(update.message.from_user.id, stickers.drake_approving)
         update.message.reply_text(message)
