@@ -201,7 +201,11 @@ def train_from_pdf(bot: Bot, update: Update, conn):
         message = f"{_(app_strings.added_train)}"
         for train in trains:
             db_utils.insert_train_in_db(train, conn, False)
-            message += get_train_info_message(train, format_date(train.depart_date, ""), conn)
+            message += get_train_info_message(
+                train,
+                format_date(train.depart_date, train.check_daily, train.check_interval, False),
+                conn
+            )
         conn.commit()
         bot.send_sticker(update.message.from_user.id, stickers.drake_approving)
         update.message.reply_text(message)
@@ -246,13 +250,12 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("info", train_info_list))
     updater.dispatcher.add_handler(CallbackQueryHandler(callback=train_info, pattern=r'info \d+'))
     updater.job_queue.run_repeating(monitor, interval=2400, first=0)
-    updater.start_polling()
-    # updater.start_webhook(
-    #     listen='0.0.0.0',
-    #     port=5000,
-    #     url_path=token,
-    #     webhook_url=f'https://{BOT_DOMAIN}/{token}'
-    # )
+    updater.start_webhook(
+        listen='0.0.0.0',
+        port=5000,
+        url_path=token,
+        webhook_url=f'https://{BOT_DOMAIN}/{token}'
+    )
     updater.idle()
 
 

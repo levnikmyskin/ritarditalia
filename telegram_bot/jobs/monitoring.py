@@ -135,10 +135,6 @@ def run(bot, job):
                 message, status = get_status_message(status, train, conn, lang=user.lang)
                 if status == TrainStatus.AVAILABLE:
                     send_status_info(train.user, message, conn)
-                elif status == TrainStatus.ERROR:
-                    bot.send_sticker(train.user, stickers.sad_cat)
-                    message = f"{_(app_strings.monitoring_api_error)}\nErrore sul treno {train.code}"
-                    send_telegram_message(train.user, message)
         except Exception as e:
             logging.error(e)
     conn.close()
